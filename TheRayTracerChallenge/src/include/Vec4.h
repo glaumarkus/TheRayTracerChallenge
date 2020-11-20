@@ -41,6 +41,8 @@ struct Vec4 {
 		w(w) 
 	{}
 
+	~Vec4() {}
+
 	// copy constructor
 	Vec4(const Vec4& other) {
 		x = other.x;
