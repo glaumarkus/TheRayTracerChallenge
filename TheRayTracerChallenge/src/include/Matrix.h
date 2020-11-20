@@ -17,13 +17,9 @@ public:
         f[1][0] = 0.0f;
     }
 
-    Mat2(const float fi[2][2]) {
-        for (int r = 0; r < 2; ++r) {
-            for (int c = 0; c < 2; ++c) {
-                f[r][c] = fi[r][c];
-            }
-        }
-    }
+	Mat2(float fi[2][2]) {
+        std::memcpy(f, fi, sizeof f);
+	}
 
     Mat2(const Mat2& m2) {
         for (int r = 0; r < 2; ++r) {
@@ -32,6 +28,10 @@ public:
             }
         }
     }
+
+	Mat2(Mat2&& m2) noexcept {
+        std::memcpy(&f, &m2.f, sizeof f);
+	}
 
     ~Mat2() {}
 
@@ -55,11 +55,7 @@ public:
     }
 
 	inline Mat2& operator =(Mat2&& m2) noexcept {
-		for (int r = 0; r < 2; ++r) {
-			for (int c = 0; c < 2; ++c) {
-				f[r][c] = m2.f[r][c];
-			}
-		}
+        std::memcpy(&f, &m2.f, sizeof m2.f);
 		return *this;
 	}
 
@@ -90,12 +86,8 @@ public:
         f[2][2] = 1.0f;
     }
 
-    Mat3(const float fi[3][3]) {
-        for (int r = 0; r < 3; ++r) {
-            for (int c = 0; c < 3; ++c) {
-                f[r][c] = fi[r][c];
-            }
-        }
+    Mat3(float fi[3][3]) {
+        std::memcpy(f, fi, sizeof f);
     }
 
     Mat3(const Mat3& m3) {
@@ -105,6 +97,10 @@ public:
             }
         }
     }
+
+	Mat3(Mat3&& m3) noexcept {
+		std::memcpy(&f, &m3.f, sizeof f);
+	}
 
     ~Mat3() {}
 
@@ -117,11 +113,7 @@ public:
         return *this;
     }
 	inline Mat3& operator =(Mat3&& m3) noexcept {
-		for (int r = 0; r < 3; ++r) {
-			for (int c = 0; c < 3; ++c) {
-				f[r][c] = m3.f[r][c];
-			}
-		}
+        std::memcpy(&f, &m3.f, sizeof f);
 		return *this;
 	}
 
@@ -195,13 +187,10 @@ public:
         f[3][3] = 1.0f;
     }
 
-    Mat4(const float fi[4][4]) {
-        for (int r = 0; r < 4; ++r) {
-            for (int c = 0; c < 4; ++c) {
-                f[r][c] = fi[r][c];
-            }
-        }
-    }
+
+	Mat4(float fi[4][4]) {
+		memcpy(f, fi, sizeof(f));
+	}
 
     Mat4(const Mat4& m4) {
         for (int r = 0; r < 4; ++r) {
@@ -210,6 +199,10 @@ public:
             }
         }
     }
+
+	Mat4(Mat4&& m4) noexcept {
+        std::memcpy(&f, &m4.f, sizeof f);
+	}
 
     ~Mat4() {}
 
@@ -256,11 +249,7 @@ public:
 
     // move constructor
 	inline Mat4& operator =(Mat4&& m4) noexcept {
-		for (int r = 0; r < 4; ++r) {
-			for (int c = 0; c < 4; ++c) {
-				f[r][c] = m4.f[r][c];
-			}
-		}
+        std::memcpy(&f, &m4.f, sizeof f);
 		return *this;
 	}
 
@@ -275,7 +264,7 @@ public:
 };
 
 // Mat4 submatrix
-Mat3&& submatrix(const Mat4& m4, const int& ri, const int& ci) {
+Mat3 submatrix(const Mat4& m4, const int& ri, const int& ci) {
 
     float f[3][3];
 
@@ -295,7 +284,7 @@ Mat3&& submatrix(const Mat4& m4, const int& ri, const int& ci) {
         nr++;
     }
 
-    return std::move(Mat3(f));
+    return Mat3(f);
 }
 
 float determinant(const Mat4& m4) {
@@ -361,69 +350,69 @@ bool equal(const Mat4& m1, const Mat4& m2) {
 
 
 // addition
-inline Mat2&& operator +(const Mat2& m1, const Mat2& m2) noexcept {
+inline Mat2 operator +(const Mat2& m1, const Mat2& m2) noexcept {
     float f[2][2];
     for (int r = 0; r < 2; ++r) {
         for (int c = 0; c < 2; ++c) {
             f[r][c] = m1.f[r][c] + m2.f[r][c];
         }
     }
-    return std::move(Mat2(f));
+    return Mat2(f);
 }
 
-inline Mat3&& operator +(const Mat3& m1, const Mat3& m2) noexcept {
+inline Mat3 operator +(const Mat3& m1, const Mat3& m2) noexcept {
     float f[3][3];
     for (int r = 0; r < 3; ++r) {
         for (int c = 0; c < 3; ++c) {
             f[r][c] = m1.f[r][c] + m2.f[r][c];
         }
     }
-    return std::move(Mat3(f));
+    return Mat3(f);
 }
 
-inline Mat4&& operator +(const Mat4& m1, const Mat4& m2) noexcept {
+inline Mat4 operator +(const Mat4& m1, const Mat4& m2) noexcept {
     float f[4][4];
     for (int r = 0; r < 4; ++r) {
         for (int c = 0; c < 4; ++c) {
             f[r][c] = m1.f[r][c] + m2.f[r][c];
         }
     }
-    return std::move(Mat4(f));
+    return Mat4(f);
 }
 
 // substraction
-inline Mat2&& operator -(const Mat2& m1, const Mat2& m2) noexcept {
+inline Mat2 operator -(const Mat2& m1, const Mat2& m2) noexcept {
     float f[2][2];
     for (int r = 0; r < 2; ++r) {
         for (int c = 0; c < 2; ++c) {
             f[r][c] = m1.f[r][c] - m2.f[r][c];
         }
     }
-    return std::move(Mat2(f));
+    return Mat2(f);
 }
 
-inline Mat3&& operator -(const Mat3& m1, const Mat3& m2) noexcept {
+inline Mat3 operator -(const Mat3& m1, const Mat3& m2) noexcept {
     float f[3][3];
     for (int r = 0; r < 3; ++r) {
         for (int c = 0; c < 3; ++c) {
             f[r][c] = m1.f[r][c] - m2.f[r][c];
         }
     }
-    return std::move(Mat3(f));
+    return Mat3(f);
 }
 
-inline Mat4&& operator -(const Mat4& m1, const Mat4& m2) noexcept {
+inline Mat4 operator -(const Mat4& m1, const Mat4& m2) noexcept {
     float f[4][4];
     for (int r = 0; r < 4; ++r) {
         for (int c = 0; c < 4; ++c) {
             f[r][c] = m1.f[r][c] - m2.f[r][c];
         }
     }
-    return std::move(Mat4(f));
+    return Mat4(f);
 }
 
 // multiplication
-inline Mat2&& operator *(const Mat2& m1, const Mat2& m2) noexcept {
+inline Mat2 operator *(const Mat2& m1, const Mat2& m2) noexcept {
     float f[2][2];
     for (int r = 0; r < 2; ++r) {
         for (int c = 0; c < 2; ++c) {
@@ -434,10 +423,10 @@ inline Mat2&& operator *(const Mat2& m1, const Mat2& m2) noexcept {
             f[r][c] = tmp;
         }
     }
-    return std::move(Mat2(f));
+    return Mat2(f);
 }
 
-inline Mat3&& operator *(const Mat3& m1, const Mat3& m2) noexcept {
+inline Mat3 operator *(const Mat3& m1, const Mat3& m2) noexcept {
     float f[3][3];
     for (int r = 0; r < 3; ++r) {
         for (int c = 0; c < 3; ++c) {
@@ -448,10 +437,10 @@ inline Mat3&& operator *(const Mat3& m1, const Mat3& m2) noexcept {
             f[r][c] = tmp;
         }
     }
-    return std::move(Mat3(f));
+    return Mat3(f);
 }
 
-inline Mat4&& operator *(const Mat4& m1, const Mat4& m2) noexcept {
+inline Mat4 operator *(const Mat4& m1, const Mat4& m2) noexcept {
     float f[4][4];
     for (int r = 0; r < 4; ++r) {
         for (int c = 0; c < 4; ++c) {
@@ -462,11 +451,11 @@ inline Mat4&& operator *(const Mat4& m1, const Mat4& m2) noexcept {
             f[r][c] = tmp;
         }
     }
-    return std::move(Mat4(f));
+    return Mat4(f);
 }
 
 // multiplication vector
-inline Vec4&& operator *(const Mat4& m, const Vec4& v) noexcept {
+inline Vec4 operator *(const Mat4& m, const Vec4& v) noexcept {
     float f[4];
     for (int r = 0; r < 4; ++r) {
         float tmp = 0.0f;
@@ -475,78 +464,78 @@ inline Vec4&& operator *(const Mat4& m, const Vec4& v) noexcept {
         }
         f[r] = tmp;
     }
-    return std::move(Vec4(f[0], f[1], f[2], f[3]));
+    return Vec4(f[0], f[1], f[2], f[3]);
 }
 
 
 // move pt
-Mat4&& translate(const float& x, const float& y, const float& z) {
+Mat4 translate(const float& x, const float& y, const float& z) {
     float f[4][4] = {
         {1.0f, 0.0f, 0.0f, x   },
         {0.0f, 1.0f, 0.0f, y   },
         {0.0f, 0.0f, 1.0f, z   },
         {0.0f, 0.0f, 0.0f, 1.0f}
     };
-    return std::move(Mat4(f));
+    return Mat4(f);
 }
 
 // increase pt
-Mat4&& scale(const float& x, const float& y, const float& z) {
+Mat4 scale(const float& x, const float& y, const float& z) {
     float f[4][4] = {
         {x,    0.0f, 0.0f, 0.0f},
         {0.0f, y,    0.0f, 0.0f},
         {0.0f, 0.0f, z,    0.0f},
         {0.0f, 0.0f, 0.0f, 1.0f}
     };
-    return std::move(Mat4(f));
+    return Mat4(f);
 }
 
 // rotate pt on x
-Mat4&& rotate_x(const float& rad) {
+Mat4 rotate_x(const float& rad) {
     float f[4][4] = {
         {1.0f, 0.0f,      0.0f,     0.0f},
         {0.0f, cos(rad), -sin(rad), 0.0f},
         {0.0f, sin(rad),  cos(rad), 0.0f},
         {0.0f, 0.0f,      0.0f,     1.0f}
     };
-    return std::move(Mat4(f));
+    return Mat4(f);
 }
 
 // rotate pt on y
-Mat4&& rotate_y(const float& rad) {
+Mat4 rotate_y(const float& rad) {
     float f[4][4] = {
         {cos(rad),  0.0f, sin(rad), 0.0f},
         {0.0f,      1.0f, 0.0f,     0.0f},
         {-sin(rad), 0.0f, cos(rad), 0.0f},
         {0.0f,      0.0f, 0.0f,     1.0f}
     };
-    return std::move(Mat4(f));
+    return Mat4(f);
 }
 
 // rotate pt on z
-Mat4&& rotate_z(const float& rad) {
+Mat4 rotate_z(const float& rad) {
     float f[4][4] = {
         {cos(rad), -sin(rad),  0.0f, 0.0f},
         {sin(rad),  cos(rad),  0.0f, 0.0f},
         {0.0f,      0.0f,      1.0f, 0.0f},
         {0.0f,      0.0f,      0.0f, 1.0f}
     };
-    return std::move(Mat4(f));
+    return Mat4(f);
 }
 
 // influence of params on others
-Mat4&& shear(const float& xy, const float& xz, const float& yx, const float& yz, const float& zx, const float& zy) {
+Mat4 shear(const float& xy, const float& xz, const float& yx, const float& yz, const float& zx, const float& zy) {
     float f[4][4] = {
         {1.0f, xy,   xz,   0.0f},
         {yx,   1.0f, yz,   0.0f},
         {zx,   zy,   1.0f, 0.0f},
         {0.0f, 0.0f, 0.0f, 1.0f}
     };
-    return std::move(Mat4(f));
+    return Mat4(f);
 }
 
 // chain all transformations
-Mat4&& transform(
+Mat4 transform(
     const float& x_translate = 1.0f,
     const float& y_translate = 1.0f,
     const float& z_translate = 1.0f,
@@ -583,7 +572,7 @@ Mat4&& transform(
     if (xy != 1.0f || xz != 1.0f || yx != 1.0f || yz != 1.0f || zx != 1.0f || zy != 1.0f)
         shearing = shear(xy, xz, yx, yz, zx, zy);
 
-    return std::move(Mat4(translation * scaling * rotation_x * rotation_y * rotation_z * shearing));
+    return Mat4(translation * scaling * rotation_x * rotation_y * rotation_z * shearing);
 }
 
 

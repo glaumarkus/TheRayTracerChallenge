@@ -144,68 +144,68 @@ struct Vec4 {
 
 
 // add operators
-inline Vec4&& operator +(const Vec4& v1, const Vec4& v2)
+inline Vec4 operator +(const Vec4& v1, const Vec4& v2)
 {
-	return std::move(Vec4(v1.x + v2.x,
+	return Vec4(v1.x + v2.x,
 		v1.y + v2.y,
 		v1.z + v2.z,
-		v1.w + v2.w));
+		v1.w + v2.w);
 }
 
-inline Vec4&& operator -(const Vec4& v1, const Vec4& v2)
+inline Vec4 operator -(const Vec4& v1, const Vec4& v2)
 {
-	return std::move(Vec4(v1.x - v2.x,
+	return Vec4(v1.x - v2.x,
 		v1.y - v2.y,
 		v1.z - v2.z,
-		v1.w - v2.w));
+		v1.w - v2.w);
 }
 
-inline Vec4&& operator *(const Vec4& v1, const Vec4& v2)
+inline Vec4 operator *(const Vec4& v1, const Vec4& v2)
 {
-	return std::move(Vec4(v1.x * v2.x,
+	return Vec4(v1.x * v2.x,
 		v1.y * v2.y,
 		v1.z * v2.z,
-		v1.w * v2.w));
+		v1.w * v2.w);
 }
 
-inline Vec4&& operator *(const Vec4& v, float f)
+inline Vec4 operator *(const Vec4& v, float f)
 {
-	return std::move(Vec4(v.x * f,
+	return Vec4(v.x * f,
 		v.y * f,
 		v.z * f,
-		v.w * f));
+		v.w * f);
 }
 
-inline Vec4&& operator *(float f, const Vec4& v)
+inline Vec4 operator *(float f, const Vec4& v)
 {
-	return std::move(Vec4(f * v.x,
+	return Vec4(f * v.x,
 		f * v.y,
 		f * v.z,
-		f * v.w));
+		f * v.w);
 }
 
-inline Vec4&& operator /(const Vec4& v1, const Vec4& v2)
+inline Vec4 operator /(const Vec4& v1, const Vec4& v2)
 {
-	return std::move(Vec4(v1.x / v2.x,
+	return Vec4(v1.x / v2.x,
 		v1.y / v2.y,
 		v1.z / v2.z,
-		v1.w / v2.w));
+		v1.w / v2.w);
 }
 
-inline Vec4&& operator /(const Vec4& v, float f)
+inline Vec4 operator /(const Vec4& v, float f)
 {
-	return std::move(Vec4(v.x / f,
+	return Vec4(v.x / f,
 		v.y / f,
 		v.z / f,
-		v.w / f));
+		v.w / f);
 }
 
-inline Vec4&& operator /(float f, const Vec4& v)
+inline Vec4 operator /(float f, const Vec4& v)
 {
-	return std::move(Vec4(f / v.x,
+	return Vec4(f / v.x,
 		f / v.y,
 		f / v.z,
-		f / v.w));
+		f / v.w);
 }
 
 
@@ -217,16 +217,16 @@ float dot(const Vec4& v1, const Vec4& v2) {
 }
 
 // cross
-Vec4&& cross(const Vec4& v1, const Vec4& v2) {
+Vec4 cross(const Vec4& v1, const Vec4& v2) {
 	return
-		std::move(Vec4(v1.y * v2.z - v1.z * v2.y,
+		Vec4(v1.y * v2.z - v1.z * v2.y,
 			v1.z * v2.x - v1.x * v2.z,
-			v1.x * v2.y - v1.y * v2.x));
+			v1.x * v2.y - v1.y * v2.x);
 }
 
 // reflect
-Vec4&& reflect(const Vec4& v1, const Vec4& v2) {
-	return std::move(Vec4(v1 - v2 * 2.0f * dot(v1, v2)));
+Vec4 reflect(const Vec4& v1, const Vec4& v2) {
+	return Vec4(v1 - v2 * 2.0f * dot(v1, v2));
 }
 
 // basic operations
