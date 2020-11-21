@@ -13,6 +13,13 @@ namespace RayTracer {
 
 	struct Observation {
 
+		Observation() :
+			t(INFINITY),
+			u(INFINITY),
+			v(INFINITY),
+			hit(nullptr)
+		{}
+
 		Observation(const float& t, hittable* hit) :
 			t(t),
 			u(INFINITY),
@@ -42,9 +49,9 @@ namespace RayTracer {
 			return *this;
 		}
 
-		float t = -1;
-		float u = INFINITY;
-		float v = INFINITY;
+		float t;
+		float u;
+		float v;
 		hittable* hit;
 	};
 

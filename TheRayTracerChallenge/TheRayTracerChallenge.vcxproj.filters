@@ -5,13 +5,24 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Headerdateien">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Ressourcendateien">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Calc">
+      <UniqueIdentifier>{b69f4bd8-889b-46c5-82aa-32ed8ed3b395}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shapes">
+      <UniqueIdentifier>{d5f86ad1-259e-4d43-bb04-7cc838400f5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RayTracer">
+      <UniqueIdentifier>{26885a8c-093f-40a9-869b-44ad4d79f3bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Images">
+      <UniqueIdentifier>{2af55711-cbbc-41b8-9c7b-212a59ceac1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Colors">
+      <UniqueIdentifier>{b7c3af0d-f649-42a8-bd65-427fd8ed5e32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -20,11 +31,35 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\include\Vec4.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="src\include\Matrix.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>Calc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Vec4.h">
+      <Filter>Calc</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Observation.h">
+      <Filter>RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Ray.h">
+      <Filter>RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Intersection.h">
+      <Filter>RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\hittable.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Color.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Material.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Sphere.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Image_Buffer.h">
+      <Filter>Images</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -86,12 +86,20 @@ struct Vec4 {
 		return *this;
 	}
 
+	Vec4 operator =(const Vec4& other) const {
+		return Vec4(other.x, other.y, other.z, other.w);
+	}
+
 	Vec4& operator =(Vec4&& other) noexcept {
 		x = other.x;
 		y = other.y;
 		z = other.z;
 		w = other.w;
 		return *this;
+	}
+
+	Vec4 operator =(Vec4&& other) const {
+		return Vec4(other.x, other.y, other.z, other.w);
 	}
 
 	Vec4& operator +=(const Vec4& other) {

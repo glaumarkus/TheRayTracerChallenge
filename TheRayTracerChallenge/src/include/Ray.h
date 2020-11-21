@@ -27,19 +27,9 @@ namespace RayTracer {
             direction = m * direction;
         }
 
-	    Ray& transformed(const Mat4& m) {
-		    origin = m * origin;
-		    direction = m * direction;
-            return *this;
+	    Ray transformed(const Mat4& m) const {
+            return Ray(Vec4(m * origin), Vec4(m * direction));
 	    }
-
-        Vec4 getOrigin() {
-            return origin;
-        }
-
-        Vec4 getDirection() {
-            return direction;
-        }
 
         Vec4 position(float t) const {
             return Vec4(origin + direction * t);
@@ -55,7 +45,6 @@ namespace RayTracer {
             printf("Ray: (%f, %f, %f, %f) (%f, %f, %f, %f)\n", origin.x, origin.y, origin.z, origin.w, direction.x, direction.y, direction.z, direction.w);
         }
 
-    private:
 	    Vec4 origin;
 	    Vec4 direction;
 
