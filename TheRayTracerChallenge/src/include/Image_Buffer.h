@@ -14,8 +14,8 @@ namespace RayTracer {
     public:
 
         Image_Buffer() :
-            width(800),
-            height(800)
+            width(300),
+            height(300)
         {
             int num_pixel = width * height;
             pixel_color = new Color[num_pixel];

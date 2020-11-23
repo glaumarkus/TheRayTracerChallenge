@@ -46,12 +46,26 @@ namespace RayTracer {
 
 	World::World() {
 
-		Light* light = new Light(Color(0.9f), Vec4(-50, 50, 50));
+		Light* light = new Light(Color(0.9f), Vec4(-50, 50, 50, 1));
 		light_objects.push_back(light);
 
 
-		Sphere* s1 = new Sphere(scale(5, 5, 5), &Materials::Emerald);
+		Sphere* s1 = new Sphere(transform(-5.0f, 1.0f, -1.0f, 3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Emerald);
 		hittable_objects.push_back(s1);
+
+		/*
+		Sphere* s2 = new Sphere(scale(5.0f, 5.0f, 5.0f), &Materials::Gold);
+		hittable_objects.push_back(s2);
+
+		*/
+
+		/*
+		
+		Light* light1 = new Light(Color(1.0f), Vec4(50, 100, -50));
+		Light* light2 = new Light(Color(0.2f), Vec4(-400, 50, -10));
+		Material white_mat( Color(0.7f), Color(0.1f), Color(0.0f), 0.1f, 0.0f, 1.0f);
+
+		*/
 
 	}
 
@@ -92,11 +106,11 @@ namespace RayTracer {
 		}
 
 		// reflection & refraction
-		if (comps.material->reflective > 0.0f) {
+		if (comps.material->reflective > 0.0f && num_recursions >= 0) {
 			Color reflection_color = reflection_at(comps, num_recursions);
 		}
 
-		if (comps.material->transparent > 0.0f) {
+		if (comps.material->transparent > 0.0f && num_recursions >= 0) {
 			Color refraction_color = refraction_at(comps, num_recursions);
 		}
 

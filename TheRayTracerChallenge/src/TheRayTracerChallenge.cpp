@@ -9,6 +9,39 @@
 constexpr int NUM_RECURSIONS = 3;
 
 
+namespace RayTracer {
+
+    void UnitTestMatTranslation() {
+        Vec4 p(-3, 4, 5, 1);
+        Mat4 m = translate(5, -3, 2);
+        Vec4 p_fin = m * p;
+        Vec4 answer(2, 1, 7);
+    }
+
+    void UnitTestMatVec() {
+
+        UnitTestMatTranslation();
+
+        // Unit Test Mat4
+        Vec4 p(1, 0, 1, 1);
+        Mat4 A = rotate_x(PI / 2);
+        Mat4 B = scale(5, 5, 5);
+        Mat4 C = translate(10, 5, 7);
+
+        Vec4 p2 = A * p;
+        Vec4 p3 = B * p2;
+        Vec4 p4 = C * p3;
+
+        Vec4 pt5 = (C * B * A) * p;
+
+        Vec4 correct(15, 0, 7);
+    }
+    
+
+
+}
+
+
 void render(
     const int& i, const int& j, const int& width, const int& height,
     const RayTracer::World& localWorld, 
@@ -40,6 +73,7 @@ void render(
 
 int main()
 {
+    RayTracer::UnitTestMatVec();
     RayTracer::World world;
     RayTracer::Camera camera;
     RayTracer::Image_Buffer image;

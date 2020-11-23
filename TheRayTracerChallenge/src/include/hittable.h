@@ -74,8 +74,15 @@ namespace RayTracer {
 		* transforms ray into local coordinate system and calls virtual intersect function
 		*/
 		void intersection_test(Intersection& i, const Ray& ray) {
-			Ray transformed_ray = ray.transformed(transformation_inverse);
-			local_intersection_test(i, transformed_ray);
+
+			//Ray transformed_ray = ray.transformed(transformation_inverse);
+
+			Mat4 tmp = transformation;
+			if (inverse(transformation)) {
+				Ray transformed_ray = ray;
+				local_intersection_test(i, transformed_ray);
+			}
+			//local_intersection_test(i, transformed_ray);
 		}
 		virtual void local_intersection_test(Intersection& i, const Ray& ray) = 0;
 

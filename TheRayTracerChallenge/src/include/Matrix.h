@@ -454,6 +454,21 @@ inline Mat4 operator *(const Mat4& m1, const Mat4& m2) noexcept {
     return Mat4(f);
 }
 
+/*
+// multiplication vector
+inline Vec4 operator *(const Mat4& m, const Vec4& v) {
+    float f[4];
+    for (int r = 0; r < 4; ++r) {
+        float tmp = 0.0f;
+        for (int c = 0; c < 4; ++c) {
+            tmp += m.f[r][c] * v[c];
+        }
+        f[r] = tmp;
+    }
+    return Vec4(f[0], f[1], f[2], f[3]);
+}
+*/
+
 // multiplication vector
 inline Vec4 operator *(const Mat4& m, const Vec4& v) {
     float f[4];
@@ -552,27 +567,27 @@ Mat4 transform(
     const float& zx = 0.0f,
     const float& zy = 0.0f
 ) {
-    Mat4 translation, scaling, rotation_x, rotation_y, rotation_z, shearing;
+    Mat4 matrix;
 
     if (x_translate != 0.0f || y_translate != 0.0f || y_translate == 0.0f)
-        translation = translate(x_translate, y_translate, z_translate);
+        matrix = matrix * translate(x_translate, y_translate, z_translate); translate(x_translate, y_translate, z_translate);
 
     if (x_scale != 1.0f || y_scale != 1.0f || z_scale != 1.0f)
-        scaling = scale(x_scale, y_scale, z_scale);
+        matrix = matrix * scale(x_scale, y_scale, z_scale);
 
     if (x_rotate != 0.0f)
-        rotation_x = rotate_x(x_rotate);
+        matrix = matrix * rotate_x(x_rotate);
 
     if (y_rotate != 0.0f)
-        rotation_y = rotate_y(y_rotate);
+        matrix = matrix * rotate_y(y_rotate);
 
     if (z_rotate != 0.0f)
-        rotation_z = rotate_z(z_rotate);
+        matrix = matrix * rotate_z(z_rotate);
 
     if (xy != 0.0f || xz != 0.0f || yx != 0.0f || yz != 0.0f || zx != 0.0f || zy != 0.0f)
-        shearing = shear(xy, xz, yx, yz, zx, zy);
+        matrix = matrix * shear(xy, xz, yx, yz, zx, zy);
 
-    return Mat4(translation * scaling * rotation_x * rotation_y * rotation_z * shearing);
+    return matrix;
 }
 
 

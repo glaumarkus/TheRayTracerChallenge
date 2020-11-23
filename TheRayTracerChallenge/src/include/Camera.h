@@ -10,10 +10,21 @@ namespace RayTracer {
 	public:
 
 		Camera() :
-			origin(Vec4(-20, 0, 0)), 
+			// error here?
+			origin(Vec4(-20, 0, 1, 0)), 
 			forward(Vec4(1,0,0)),
 			up(Vec4(0,0,1)),
 			right(Vec4(0,-1,0))
+		{
+			h = tan(10.0f * PI / 180.f);
+			w = h * 1;
+		}
+
+		Camera(int i) :
+			origin(Vec4(-6, 6, -10, 1)),
+			forward(Vec4(6, 0, 6)),
+			up(Vec4(-0.45, 1, 0)),
+			right(Vec4(0, -1, 0))
 		{
 			h = tan(20.0f * PI / 180.f);
 			w = h * 1;
