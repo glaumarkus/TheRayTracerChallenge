@@ -76,6 +76,14 @@ struct Vec4 {
 		w *= oneOverLength;
 	}
 
+	void norm(const float& f) {
+		float oneOverLength = 1.f / f;
+		x *= oneOverLength;
+		y *= oneOverLength;
+		z *= oneOverLength;
+		w *= oneOverLength;
+	}
+
 
 	// operators
 	Vec4& operator =(const Vec4& other) {

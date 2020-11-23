@@ -78,6 +78,13 @@ namespace RayTracer {
 			return *this;
 		}
 
+		Color& operator /=(float f) {
+			r /= f;
+			g /= f;
+			b /= f;
+			return *this;
+		}
+
 		float r, g, b, a;
 
 	};

@@ -455,7 +455,7 @@ inline Mat4 operator *(const Mat4& m1, const Mat4& m2) noexcept {
 }
 
 // multiplication vector
-inline Vec4 operator *(const Mat4& m, const Vec4& v) noexcept {
+inline Vec4 operator *(const Mat4& m, const Vec4& v) {
     float f[4];
     for (int r = 0; r < 4; ++r) {
         float tmp = 0.0f;
@@ -536,40 +536,40 @@ Mat4 shear(const float& xy, const float& xz, const float& yx, const float& yz, c
 
 // chain all transformations
 Mat4 transform(
-    const float& x_translate = 1.0f,
-    const float& y_translate = 1.0f,
-    const float& z_translate = 1.0f,
+    const float& x_translate = 0.0f,
+    const float& y_translate = 0.0f,
+    const float& z_translate = 0.0f,
     const float& x_scale = 1.0f,
     const float& y_scale = 1.0f,
     const float& z_scale = 1.0f,
-    const float& x_rotate = 1.0f,
-    const float& y_rotate = 1.0f,
-    const float& z_rotate = 1.0f,
-    const float& xy = 1.0f,
-    const float& xz = 1.0f,
-    const float& yx = 1.0f,
-    const float& yz = 1.0f,
-    const float& zx = 1.0f,
-    const float& zy = 1.0f
+    const float& x_rotate = 0.0f,
+    const float& y_rotate = 0.0f,
+    const float& z_rotate = 0.0f,
+    const float& xy = 0.0f,
+    const float& xz = 0.0f,
+    const float& yx = 0.0f,
+    const float& yz = 0.0f,
+    const float& zx = 0.0f,
+    const float& zy = 0.0f
 ) {
     Mat4 translation, scaling, rotation_x, rotation_y, rotation_z, shearing;
 
-    if (x_translate != 1.0f || y_translate != 1.0f || y_translate == 1.0f)
+    if (x_translate != 0.0f || y_translate != 0.0f || y_translate == 0.0f)
         translation = translate(x_translate, y_translate, z_translate);
 
     if (x_scale != 1.0f || y_scale != 1.0f || z_scale != 1.0f)
         scaling = scale(x_scale, y_scale, z_scale);
 
-    if (x_rotate != 1.0f)
+    if (x_rotate != 0.0f)
         rotation_x = rotate_x(x_rotate);
 
-    if (y_rotate != 1.0f)
+    if (y_rotate != 0.0f)
         rotation_y = rotate_y(y_rotate);
 
-    if (z_rotate != 1.0f)
+    if (z_rotate != 0.0f)
         rotation_z = rotate_z(z_rotate);
 
-    if (xy != 1.0f || xz != 1.0f || yx != 1.0f || yz != 1.0f || zx != 1.0f || zy != 1.0f)
+    if (xy != 0.0f || xz != 0.0f || yx != 0.0f || yz != 0.0f || zx != 0.0f || zy != 0.0f)
         shearing = shear(xy, xz, yx, yz, zx, zy);
 
     return Mat4(translation * scaling * rotation_x * rotation_y * rotation_z * shearing);

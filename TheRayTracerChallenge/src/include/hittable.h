@@ -16,12 +16,17 @@ namespace RayTracer {
 
 	public:
 
-		hittable(){}
+		hittable(Material* material) : material(material) {}
 		~hittable(){}
 
 		virtual void intersection_test(Intersection& i, const Ray& ray) = 0;
 		virtual float shadow_intersection() = 0;
 		virtual Vec4 normal_at(const Vec4& point) = 0;
+
+		Material* getMaterial() { return material; }
+
+	protected:
+		Material* material;
 
 	};
 
@@ -34,7 +39,7 @@ namespace RayTracer {
 		*/
 		transformed(const Mat4& transformation, Material* material) :
 			transformation(transformation),
-			material(material)
+			hittable(material)
 		{
 			transformation_inverse = transformation;
 			if (!inverse(transformation_inverse)) {
@@ -49,7 +54,7 @@ namespace RayTracer {
 
 		transformed(Mat4&& transformation, Material* material) :
 			transformation(std::move(transformation)),
-			material(material)
+			hittable(material)
 		{
 			transformation_inverse = std::move(transformation);
 			if (!inverse(transformation_inverse)) {
@@ -91,8 +96,9 @@ namespace RayTracer {
 
 			return world_normal;
 		};
-
 		virtual Vec4 local_normal_at(const Vec4& transformed_point) = 0;
+
+		
 
 		float shadow_intersection() { return 1.0f; }
 
@@ -101,7 +107,7 @@ namespace RayTracer {
 		Mat4 transformation;
 		Mat4 transformation_inverse;
 		Mat4 transformation_inverse_transposed;
-		Material* material;
+		
 	};
 
 

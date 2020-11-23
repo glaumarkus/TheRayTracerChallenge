@@ -16,6 +16,11 @@ namespace RayTracer {
 		    direction(r.direction)
 	    {};
 
+        Ray(Ray&& r) :
+            origin(std::move(r.origin)),
+            direction(std::move(r.direction))
+        {};
+
         Ray(const Vec4& origin, const Vec4& direction) :
             origin(origin),
             direction(direction)

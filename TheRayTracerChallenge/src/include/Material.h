@@ -80,6 +80,8 @@ namespace RayTracer {
         float transparent;
         float refractive;
 
+
+
         // texture specific
         /*
         Texture* texture;
