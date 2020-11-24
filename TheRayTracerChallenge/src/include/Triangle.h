@@ -37,7 +37,10 @@ namespace RayTracer {
 			e1(*v2 - *v1),
 			e2(*v3 - *v1),
 			has_normal(0),
-			normal(cross(e2, e1).normalize())
+			normal(cross(e2, e1).normalize()),
+			normal_v1(nullptr),
+			normal_v2(nullptr),
+			normal_v3(nullptr)
 		{}
 		
 
@@ -53,7 +56,8 @@ namespace RayTracer {
 			normal_v1(n1), normal_v2(n2), normal_v3(n3),
 			e1(*v2 - *v1),
 			e2(*v3 - *v1),
-			has_normal(1)
+			has_normal(1),
+			normal()
 		{}
 
 		void intersection_test(Intersection& i, const Ray& ray) {
