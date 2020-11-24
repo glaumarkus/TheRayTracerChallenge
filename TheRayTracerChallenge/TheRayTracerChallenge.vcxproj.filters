@@ -61,5 +61,23 @@
     <ClInclude Include="src\include\Image_Buffer.h">
       <Filter>Images</Filter>
     </ClInclude>
+    <ClInclude Include="src\include\Camera.h" />
+    <ClInclude Include="src\include\Comps.h" />
+    <ClInclude Include="src\include\Lights.h" />
+    <ClInclude Include="src\include\World.h" />
+    <ClInclude Include="src\include\Cube.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Cylinder.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Plane.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Triangle.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Cone.h" />
+    <ClInclude Include="src\include\Group.h" />
   </ItemGroup>
 </Project>

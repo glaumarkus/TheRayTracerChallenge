@@ -145,7 +145,15 @@
     <ClCompile Include="src\TheRayTracerChallenge.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\include\Camera.h" />
+    <ClInclude Include="src\include\Comps.h" />
+    <ClInclude Include="src\include\Cone.h" />
+    <ClInclude Include="src\include\Cube.h" />
+    <ClInclude Include="src\include\Cylinder.h" />
+    <ClInclude Include="src\include\Group.h" />
     <ClInclude Include="src\include\Image_Buffer.h" />
+    <ClInclude Include="src\include\Lights.h" />
+    <ClInclude Include="src\include\Plane.h" />
     <ClInclude Include="src\include\Sphere.h" />
     <ClInclude Include="src\include\Color.h" />
     <ClInclude Include="src\include\Material.h" />
@@ -154,7 +162,9 @@
     <ClInclude Include="src\include\Matrix.h" />
     <ClInclude Include="src\include\Observation.h" />
     <ClInclude Include="src\include\Ray.h" />
+    <ClInclude Include="src\include\Triangle.h" />
     <ClInclude Include="src\include\Vec4.h" />
+    <ClInclude Include="src\include\World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

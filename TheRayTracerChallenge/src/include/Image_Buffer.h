@@ -14,8 +14,8 @@ namespace RayTracer {
     public:
 
         Image_Buffer() :
-            width(300),
-            height(300)
+            width(200),
+            height(200)
         {
             int num_pixel = width * height;
             pixel_color = new Color[num_pixel];
@@ -41,7 +41,7 @@ namespace RayTracer {
 
             std::ofstream out(prefix);
             out << "P3\n" << width << " " << height << "\n255\n";
-            for (int j = height - 1; j >= 0; j--) {
+            for (int j = 0; j < height; j++) {
                 for (int i = 0; i < width; i++) {
                     int pixel_index = j * height + i;
                     int ir = int(255.99 * pixel_color[pixel_index].r);

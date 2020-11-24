@@ -33,7 +33,7 @@ namespace RayTracer {
         }
 
 	    Ray transformed(const Mat4& m) const {
-            return Ray(Vec4(m * origin), direction);
+            return Ray(m * origin, m * direction);
             //return Ray(Vec4(m * origin), Vec4(m * direction));
 	    }
 

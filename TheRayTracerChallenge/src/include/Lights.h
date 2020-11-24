@@ -9,6 +9,8 @@
 
 namespace RayTracer {
 
+	constexpr float PHI = PI * (3.0f - 2.236067f);
+
 	class Light {
 	public:
 
@@ -19,11 +21,17 @@ namespace RayTracer {
 			light_points.emplace_back(position);
 		}
 
+		Light(const Color& intensity, const Vec4& position, const int& i) :
+			intensity(intensity),
+			position(position)
+		{}
+
 
 
 		Color intensity;
 		Vec4 position;
 		std::vector<Vec4> light_points;
+
 	};
 
 
@@ -31,28 +39,26 @@ namespace RayTracer {
 	class SphereLight : public Light {
 	public:
 
-		SphereLight(const Color& intensity, const Vec4& position, const int& pts = 10, const float& radius = 5.0f) : 
-			Light(intensity, position), 
+		SphereLight(const Color& intensity, const Vec4& position, const int& pts, const float& radius) : 
+			Light(intensity, position, 0),
 			pts(pts), 
-			radius(radius) 
+			radius(radius)
 		{
+
 			light_points.reserve(pts);
 
 			for (int i = 0; i < pts; i++) {
-				float phi = PI * (3.0f - std::sqrt(5.0f));
+				
 				float x, y, z;
-				float h = (float)i / (pts - 1);
-				h *= radius;
-				y = 1.0f - h;
 
-				float tmp = 1 - y * y;
-				float radius = std::sqrt(tmp);
-				float t = phi * i;
+				y = 1 - (i / (float)(pts - 1)) * 2;
+				float theta = PHI * i;
+				float rad = std::sqrt(1 - y * y);
+				x = cos(theta) * rad * radius;
+				z = sin(theta) * rad * radius;
+				y *= radius;
 
-				x = cos(t) * radius;
-				z = sin(t) * radius;
-
-				light_points.emplace_back(x, y, z);
+				light_points.emplace_back(Vec4(x,y,z) + position);
 			}
 		}
 

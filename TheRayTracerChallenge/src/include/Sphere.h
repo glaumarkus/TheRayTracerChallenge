@@ -50,6 +50,7 @@ namespace RayTracer {
 
 		}
 
+
 		Vec4 local_normal_at(const Vec4& transformed_point) {
 			return transformed_point;
 		}

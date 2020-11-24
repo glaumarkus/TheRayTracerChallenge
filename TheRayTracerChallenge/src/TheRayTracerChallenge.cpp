@@ -18,9 +18,32 @@ namespace RayTracer {
         Vec4 answer(2, 1, 7);
     }
 
+	void UnitTestRayTransform() {
+		Ray ray(Vec4(1, 2, 3, 1), Vec4(0, 1, 0));
+
+		ray.transform(transform(3, 4, 5));
+
+		Vec4 r_pos(4, 6, 8);
+		Vec4 r_dir(0, 1, 0);
+	}
+
+    void UnitTestSphereTransform() {
+
+        Sphere s(transform(0,0,0,1,1,1), &Materials::Obsidian);
+
+        Ray ray(Vec4(0, 0, -5, 1), Vec4(0, 0, 1));
+        Intersection i;
+
+        s.intersection_test(i, ray);
+        Vec4 position(ray.position(i.observation.t));
+        __debugbreak();
+    }
+
     void UnitTestMatVec() {
 
         UnitTestMatTranslation();
+        UnitTestRayTransform();
+        UnitTestSphereTransform();
 
         // Unit Test Mat4
         Vec4 p(1, 0, 1, 1);
@@ -37,7 +60,15 @@ namespace RayTracer {
         Vec4 correct(15, 0, 7);
     }
     
+    void UnitTestTriangle() {
 
+        Vec4 p1(0, 1, 0, 1);
+        Vec4 p2(-1, 0, 0, 1);
+        Vec4 p3(1, 0, 0, 1);
+
+        Triangle triangle1(&p1, &p2, &p3, &Materials::Obsidian);
+
+    }
 
 }
 
@@ -73,7 +104,9 @@ void render(
 
 int main()
 {
-    RayTracer::UnitTestMatVec();
+    //RayTracer::UnitTestMatVec();
+    RayTracer::UnitTestTriangle();
+
     RayTracer::World world;
     RayTracer::Camera camera;
     RayTracer::Image_Buffer image;

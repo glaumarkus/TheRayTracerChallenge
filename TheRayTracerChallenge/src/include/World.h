@@ -10,6 +10,9 @@
 
 #include "hittable.h"
 #include "Sphere.h"
+#include "Plane.h"
+#include "Cube.h"
+#include "Triangle.h"
 
 #include "Lights.h"
 
@@ -43,22 +46,24 @@ namespace RayTracer {
 	};
 
 
-
+	// default world
 	World::World() {
 
+		/*
 		Light* light = new Light(Color(0.9f), Vec4(-50, 50, 50, 1));
 		light_objects.push_back(light);
+		*/
+		SphereLight* light_sphere = new SphereLight(Color(0.9f), Vec4(-50, 50, 50, 1), 10, 5.0f);
+		light_objects.push_back(light_sphere);
 
-
-		Sphere* s1 = new Sphere(transform(-5.0f, 1.0f, -1.0f, 3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Emerald);
+		Sphere* s1 = new Sphere(transform(-6.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Emerald);
 		hittable_objects.push_back(s1);
 
-		/*
+		
 		Sphere* s2 = new Sphere(scale(5.0f, 5.0f, 5.0f), &Materials::Gold);
 		hittable_objects.push_back(s2);
 
-		*/
-
+		
 		/*
 		
 		Light* light1 = new Light(Color(1.0f), Vec4(50, 100, -50));
@@ -114,7 +119,7 @@ namespace RayTracer {
 			Color refraction_color = refraction_at(comps, num_recursions);
 		}
 
-		pixel_color /= num_lights;
+		pixel_color /= (float)num_lights;
 
 		return pixel_color;
 

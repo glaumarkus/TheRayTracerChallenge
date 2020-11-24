@@ -14,18 +14,17 @@ constexpr float INF = 100000.0f;
 
 struct Vec4 {
 
-	// vars
-	float x, y, z, w;
-
-	void print() { printf("Vector: (%f, %f, %f, %f)\n", x, y, z, w); }
-
 	// default constructors
-	Vec4() {
-		x = 1.0f;
-		y = 0.0f;
-		z = 0.0f;
-		w = 0.0f;
-	}
+	Vec4() :
+		x(0.0f), y(0.0f), z(0.0f), w(0.0f)
+	{}
+
+	Vec4(const float& f) :
+		x(f),
+		y(f),
+		z(f),
+		w(0.0f)
+	{}
 
 	Vec4(const float& x, const float& y, const float& z) :
 		x(x),
@@ -94,9 +93,12 @@ struct Vec4 {
 		return *this;
 	}
 
+	/*
 	Vec4 operator =(const Vec4& other) const {
 		return Vec4(other.x, other.y, other.z, other.w);
 	}
+	*/
+	
 
 	Vec4& operator =(Vec4&& other) noexcept {
 		x = other.x;
@@ -106,9 +108,6 @@ struct Vec4 {
 		return *this;
 	}
 
-	Vec4 operator =(Vec4&& other) const {
-		return Vec4(other.x, other.y, other.z, other.w);
-	}
 
 	Vec4& operator +=(const Vec4& other) {
 		x += other.x;
@@ -155,6 +154,12 @@ struct Vec4 {
 		else if (idx == 3) return w;
 		else return 0.0f;
 	}
+
+	// vars
+	float x, y, z, w;
+
+	void print() { printf("Vector: (%f, %f, %f, %f)\n", x, y, z, w); }
+
 
 };
 
@@ -229,7 +234,7 @@ inline Vec4 operator /(float f, const Vec4& v)
 
 // dot
 float dot(const Vec4& v1, const Vec4& v2) {
-	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
+	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 }
 
 // cross
