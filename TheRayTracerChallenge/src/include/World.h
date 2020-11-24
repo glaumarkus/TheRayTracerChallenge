@@ -56,12 +56,28 @@ namespace RayTracer {
 		SphereLight* light_sphere = new SphereLight(Color(0.9f), Vec4(-50, 50, 50, 1), 10, 5.0f);
 		light_objects.push_back(light_sphere);
 
-		Sphere* s1 = new Sphere(transform(-6.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Emerald);
-		hittable_objects.push_back(s1);
-
 		
-		Sphere* s2 = new Sphere(scale(5.0f, 5.0f, 5.0f), &Materials::Gold);
-		hittable_objects.push_back(s2);
+		//Sphere* s1 = new Sphere(transform(-6.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Emerald);
+		//hittable_objects.push_back(s1);
+
+		//Sphere* s2 = new Sphere(scale(5.0f, 5.0f, 5.0f), &Materials::Gold);
+		//hittable_objects.push_back(s2);
+		
+		
+		//Cube* c1 = new Cube(scale(0.4f, 0.4f, 0.4f) * translate(-5,0,0), &Materials::Emerald);
+		Cube* c1 = new Cube(transform(0.4f, 2.5f, 2.5f, 0.4f,0.4f,0.4f), &Materials::Emerald);
+		/*
+		Cube* c2 = new Cube(transform(0, -1, 1, 0.4f, 0.4f, 0.4f), &Materials::Gold);
+		Cube* c3 = new Cube(transform(0, 1, -1, 0.4f, 0.4f, 0.4f), &Materials::Obsidian);
+		Cube* c4 = new Cube(transform(0, -1, -1, 0.4f, 0.4f, 0.4f), &Materials::Brass);
+		*/
+
+		hittable_objects.push_back(c1);
+		/*
+		hittable_objects.push_back(c2);
+		hittable_objects.push_back(c3);
+		hittable_objects.push_back(c4);
+		*/
 
 		
 		/*

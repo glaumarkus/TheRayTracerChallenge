@@ -21,7 +21,7 @@ namespace RayTracer {
 
 		virtual void intersection_test(Intersection& i, const Ray& ray) = 0;
 		virtual float shadow_intersection() = 0;
-		virtual Vec4 normal_at(const Vec4& point) = 0;
+		virtual Vec4 normal_at(const Vec4& point, const float& u, const float& v) = 0;
 
 		Material* getMaterial() { return material; }
 
@@ -84,7 +84,7 @@ namespace RayTracer {
 		/*
 		* transforms point into local coordinate system and calls virtual normal function
 		*/
-		Vec4 normal_at(const Vec4& point) {
+		Vec4 normal_at(const Vec4& point, const float& u, const float& v) {
 
 			Vec4 transformed_normal = local_normal_at(
 				transformation_inverse * point

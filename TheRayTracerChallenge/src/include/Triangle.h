@@ -2,30 +2,10 @@
 #define INCLUDE_TRIANGLE_H
 
 #include <cmath>
-#include <vector>
 #include "hittable.h"
 
 
 namespace RayTracer {
-
-	class Vertex_Handler {
-	public:
-		Vertex_Handler() {}
-
-		~Vertex_Handler() {
-			for (auto vertex : vertices) {
-				delete vertex;
-			}
-		}
-
-		void push_back(Vec4* vertex) {
-			vertices.push_back(vertex);
-		}
-
-	private:
-		std::vector<Vec4*> vertices;
-	};
-
 
 	class Triangle : public hittable {
 	public:
@@ -61,10 +41,33 @@ namespace RayTracer {
 		{}
 
 		void intersection_test(Intersection& i, const Ray& ray) {
+
+			Vec4 dir_cross_e2 = cross(ray.direction, e2);
+			float det = dot(e1, dir_cross_e2);
+
+			if (std::abs(det) < EPSILON) return;
+			
+			float f = 1.0f / det;
+			Vec4 p1_to_origin = ray.origin - *vertex1;
+			float u = f * dot(p1_to_origin, dir_cross_e2);
+
+			if (u < 0 || u > 1) return;
+
+			Vec4 origin_cross_e1 = cross(p1_to_origin, e1);
+			float v = f * dot(ray.direction, origin_cross_e1);
+
+			if (v < 0 || (u + v) > 1) return;
+
+			float t = f * dot(e2, origin_cross_e1);
+			i.checkIntersection(t, this);
 		}
 
-		Vec4 normal_at(const Vec4& transformed_point) {
-			return Vec4(0, 0, 1, 0);
+		Vec4 normal_at(const Vec4& point, const float& u, const float& v) {
+
+			if (has_normal == 0) {
+				return normal;
+			}
+			return Vec4(*normal_v2 * u + *normal_v3 * v + *normal_v1 * (1 - u - v));
 		}
 
 		float shadow_intersection() { return 0.0f; }

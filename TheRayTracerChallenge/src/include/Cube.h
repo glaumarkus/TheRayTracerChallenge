@@ -82,9 +82,8 @@ namespace RayTracer {
 
 			if (t.t1 > t.t2) {
 				float tmp = t.t1;
-				t.t1 += t.t2;
-				t.t2 -= t.t1;
-				t.t1 -= t.t2;
+				t.t1 = t.t2;
+				t.t2 = tmp;
 			}
 
 			return t;

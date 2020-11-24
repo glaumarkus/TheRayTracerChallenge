@@ -30,7 +30,7 @@ namespace RayTracer {
 
         comps.t = intersection.observation.t;
         comps.point = ray.position(comps.t);
-		comps.normal_vector = intersection.observation.hit->normal_at(comps.point);
+		comps.normal_vector = intersection.observation.hit->normal_at(comps.point, intersection.observation.u, intersection.observation.v);
 		comps.under_point = comps.point - EPSILON * comps.normal_vector;
 		comps.over_point = comps.point + EPSILON * comps.normal_vector;
 		comps.eye_vector = ray.direction * -1;

@@ -24,6 +24,9 @@
     <Filter Include="Colors">
       <UniqueIdentifier>{b7c3af0d-f649-42a8-bd65-427fd8ed5e32}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{c7199e7f-fcea-43d5-9626-9c11263326fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\TheRayTracerChallenge.cpp">
@@ -61,10 +64,6 @@
     <ClInclude Include="src\include\Image_Buffer.h">
       <Filter>Images</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\Camera.h" />
-    <ClInclude Include="src\include\Comps.h" />
-    <ClInclude Include="src\include\Lights.h" />
-    <ClInclude Include="src\include\World.h" />
     <ClInclude Include="src\include\Cube.h">
       <Filter>Shapes</Filter>
     </ClInclude>
@@ -77,7 +76,32 @@
     <ClInclude Include="src\include\Triangle.h">
       <Filter>Shapes</Filter>
     </ClInclude>
-    <ClInclude Include="src\include\Cone.h" />
-    <ClInclude Include="src\include\Group.h" />
+    <ClInclude Include="src\include\Camera.h">
+      <Filter>RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\World.h">
+      <Filter>RayTracer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Lights.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Group.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Cone.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Comps.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Vertex_Handler.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\OBJ_Reader.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="src\include\Torus.h">
+      <Filter>Shapes</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

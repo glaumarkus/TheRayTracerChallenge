@@ -1,2 +1,4 @@
 ﻿  TheRayTracerChallenge.cpp
+C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\include\World.h(118,40): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "int", Datenverlust möglich
+C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\include\World.h(172,40): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "int", Datenverlust möglich
   TheRayTracerChallenge.vcxproj -> C:\Users\glaum\Source\Repos\glaumarkus\TheRayTracerChallenge\x64\Debug\TheRayTracerChallenge.exe
