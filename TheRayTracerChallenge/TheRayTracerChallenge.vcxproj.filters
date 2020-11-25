@@ -103,5 +103,8 @@
     <ClInclude Include="src\include\Torus.h">
       <Filter>Shapes</Filter>
     </ClInclude>
+    <ClInclude Include="src\include\Pattern.h">
+      <Filter>Colors</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

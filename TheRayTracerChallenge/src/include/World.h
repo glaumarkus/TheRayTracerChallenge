@@ -13,6 +13,8 @@
 #include "Plane.h"
 #include "Cube.h"
 #include "Triangle.h"
+#include "Group.h"
+#include "OBJ_Reader.h"
 
 #include "Lights.h"
 
@@ -53,39 +55,171 @@ namespace RayTracer {
 		Light* light = new Light(Color(0.9f), Vec4(-50, 50, 50, 1));
 		light_objects.push_back(light);
 		*/
-		SphereLight* light_sphere = new SphereLight(Color(0.9f), Vec4(-50, 50, 50, 1), 10, 5.0f);
+		SphereLight* light_sphere = new SphereLight(Color(0.9f), Vec4(-50, -50, 50, 1), 10, 5.0f);
 		light_objects.push_back(light_sphere);
 
-		
-		//Sphere* s1 = new Sphere(transform(-6.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Emerald);
-		//hittable_objects.push_back(s1);
 
+		std::string obj_file = "objects/Dragon.obj";
+		//std::string obj_file = "objects/teapot.obj";
+		OBJ_Reader reader(obj_file, &Materials::Gold, transform(0,0,0,2.5,2.5,2.5));
+		//OBJ_Reader reader(obj_file, &Materials::Gold, std::move(scale(3,3,3)));
+		Group* g = new Group(translate(0,0,0),&Materials::Gold);
+		reader.copy_data(*g);
+		hittable_objects.push_back(g);
+		/*
+		Plane* p1 = new Plane(transform(0, 0, -5,1,1,1,-PI/2), &Materials::Stripes);
+		hittable_objects.push_back(p1);
+		
+		Sphere* s1 = new Sphere(transform(6.0f, 0.0f, 0.0f, 3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Gold);
+		hittable_objects.push_back(s1);
+		*/
 		//Sphere* s2 = new Sphere(scale(5.0f, 5.0f, 5.0f), &Materials::Gold);
 		//hittable_objects.push_back(s2);
 		
-		
-		//Cube* c1 = new Cube(scale(0.4f, 0.4f, 0.4f) * translate(-5,0,0), &Materials::Emerald);
-		Cube* c1 = new Cube(transform(0.4f, 2.5f, 2.5f, 0.4f,0.4f,0.4f), &Materials::Emerald);
 		/*
-		Cube* c2 = new Cube(transform(0, -1, 1, 0.4f, 0.4f, 0.4f), &Materials::Gold);
-		Cube* c3 = new Cube(transform(0, 1, -1, 0.4f, 0.4f, 0.4f), &Materials::Obsidian);
-		Cube* c4 = new Cube(transform(0, -1, -1, 0.4f, 0.4f, 0.4f), &Materials::Brass);
-		*/
+		Cube* c1 = new Cube(transform(
+			2.4,2.4,2.4,
+			0.6, 0.6, 0.6,
+			0,0,-PI/3), &Materials::Emerald);
+		Cube* c2 = new Cube(transform(
+			2.4, -2.4, -2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Brass);
+		Cube* c3 = new Cube(transform(
+			2.4, -2.4, 2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Obsidian);
+		Cube* c4 = new Cube(transform(
+			2.4, 2.4, -2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Gold);
+		Cube* c5 = new Cube(transform(
+			2.4, 0, -2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Emerald);
+		Cube* c6 = new Cube(transform(
+			2.4, 0, 2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Brass);
+		Cube* c7 = new Cube(transform(
+			2.4, 0, 0,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Obsidian);
+		Cube* c8 = new Cube(transform(
+			2.4, 2.4, 0,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Chrome);
+		Cube* c9 = new Cube(transform(
+			2.4, -2.4, 0,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Gold);
+
+		Cube* c10 = new Cube(transform(
+			0, 2.4, 2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Emerald);
+		Cube* c11 = new Cube(transform(
+			0, -2.4, -2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Brass);
+		Cube* c12 = new Cube(transform(
+			0, -2.4, 2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Obsidian);
+		Cube* c13 = new Cube(transform(
+			0, 2.4, -2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Gold);
+		Cube* c14 = new Cube(transform(
+			0, 0, -2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Emerald);
+		Cube* c15 = new Cube(transform(
+			0, 0, 2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Brass);
+		Cube* c16 = new Cube(transform(
+			0, 0, 0,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Obsidian);
+		Cube* c17 = new Cube(transform(
+			0, 2.4, 0,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Chrome);
+		Cube* c18 = new Cube(transform(
+			0, -2.4, 0,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Gold);
+
+
+		Cube* c19 = new Cube(transform(
+			-2.4, 2.4, 2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Emerald);
+		Cube* c20 = new Cube(transform(
+			-2.4, -2.4, -2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Brass);
+		Cube* c21 = new Cube(transform(
+			-2.4, -2.4, 2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Obsidian);
+		Cube* c22 = new Cube(transform(
+			-2.4, 2.4, -2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Gold);
+		Cube* c23 = new Cube(transform(
+			-2.4, 0, -2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Emerald);
+		Cube* c24 = new Cube(transform(
+			-2.4, 0, 2.4,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Brass);
+		Cube* c25 = new Cube(transform(
+			-2.4, 0, 0,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Obsidian);
+		Cube* c26 = new Cube(transform(
+			-2.4, 2.4, 0,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Chrome);
+		Cube* c27 = new Cube(transform(
+			-2.4, -2.4, 0,
+			0.6, 0.6, 0.6,
+			0, 0, -PI / 3), &Materials::Gold);
+
+
 
 		hittable_objects.push_back(c1);
-		/*
 		hittable_objects.push_back(c2);
 		hittable_objects.push_back(c3);
 		hittable_objects.push_back(c4);
-		*/
+		hittable_objects.push_back(c5);
+		hittable_objects.push_back(c6);
+		hittable_objects.push_back(c7);
+		hittable_objects.push_back(c8);
+		hittable_objects.push_back(c9);
 
-		
-		/*
-		
-		Light* light1 = new Light(Color(1.0f), Vec4(50, 100, -50));
-		Light* light2 = new Light(Color(0.2f), Vec4(-400, 50, -10));
-		Material white_mat( Color(0.7f), Color(0.1f), Color(0.0f), 0.1f, 0.0f, 1.0f);
+		hittable_objects.push_back(c10);
+		hittable_objects.push_back(c11);
+		hittable_objects.push_back(c12);
+		hittable_objects.push_back(c13);
+		hittable_objects.push_back(c14);
+		hittable_objects.push_back(c15);
+		hittable_objects.push_back(c16);
+		hittable_objects.push_back(c17);
+		hittable_objects.push_back(c18);
 
+		hittable_objects.push_back(c19);
+		hittable_objects.push_back(c20);
+		hittable_objects.push_back(c21);
+		hittable_objects.push_back(c22);
+		hittable_objects.push_back(c23);
+		hittable_objects.push_back(c24);
+		hittable_objects.push_back(c25);
+		hittable_objects.push_back(c26);
+		hittable_objects.push_back(c27);
 		*/
 
 	}
@@ -143,7 +277,15 @@ namespace RayTracer {
 
 	Color World::lighting_model(const Comps& comps, const Light* light, const float& shade_intensity) const {
 
-		Color lighted_color = comps.material->ambient * light->intensity;
+		/*
+		* Does it have a pattern?
+		*/
+		Color lighted_color = light->intensity;
+
+		if (comps.material->pattern == nullptr)
+			lighted_color *= comps.material->ambient;
+		else
+			lighted_color *= comps.material->pattern->color_at(comps.local_point);
 
 		Vec4 light_vector = (light->position - comps.point).normalize();
 		float lightDotNormal = dot(light_vector, comps.normal_vector);

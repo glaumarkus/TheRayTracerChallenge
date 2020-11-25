@@ -1,10 +1,14 @@
 #include <iostream>
+#include <chrono>
+#include <string>
 
 #include "include/Color.h"
 #include "include/World.h"
 #include "include/Camera.h"
 #include "include/Image_Buffer.h"
 #include "include/Comps.h"
+
+#include "include/OBJ_Reader.h"
 
 constexpr int NUM_RECURSIONS = 3;
 
@@ -70,6 +74,88 @@ namespace RayTracer {
 
     }
 
+	void UnitTestCube() {
+
+
+        Ray ray(Vec4(5,0.5,0, 1), Vec4(-1,0,0));
+        Cube c(Mat4(), &Materials::Brass);
+        Intersection i;
+        c.intersection_test(i, ray);
+        i = Intersection();
+
+        Vec4 normal = c.normal_at(ray.position(i.observation.t),0,0);
+
+        ray = Ray(Vec4(-2, 0, 0), Vec4(0.2673, 0.5345, 0.8018));
+        //Cube c(transform(0,-1,-1,0.5f,0.5f,0.5f), &Materials::Brass);
+
+        // Normal Test
+        Vec4 n1 = c.normal_at(Vec4(1, 0.5, -0.8, 1),0,0);
+        Vec4 n2 = c.normal_at(Vec4(-0.4, 1, -0.1, 1), 0, 0);
+        Vec4 n3 = c.normal_at(Vec4(0.3, -1, -0.7, 1), 0, 0);
+        Vec4 n4 = c.normal_at(Vec4(1, 1, 1, 1), 0, 0);
+        Vec4 n5 = c.normal_at(Vec4(-1, -1, -1, 1), 0, 0);
+
+	}
+
+    void UnitTestPattern() {
+        
+
+        Vec4 p1(0, 0, 0);
+		Vec4 p2(0, 1, 0);
+		Vec4 p3(0, 2, 0);
+		Vec4 p4(1, 0.5, 0);
+		Vec4 p5(2, 1.7, 0);
+
+        Color t(0);
+        t = Patterns::striped->color_at(p1);
+        t = Patterns::striped->color_at(p2);
+        t = Patterns::striped->color_at(p3);
+        t = Patterns::striped->color_at(p4);
+        t = Patterns::striped->color_at(p5);
+
+
+
+
+    }
+
+    void UnitTestGroup() {
+
+        Group g(&Materials::Gold);
+        
+		Sphere* s1 = new Sphere(std::move(g.get_transformation()), g.getMaterial());
+        g.add_child(s1);
+
+
+    }
+
+    void UnitTestReader() {
+
+        std::string obj_file = "objects/Dragon.obj";
+        OBJ_Reader reader(obj_file, &Materials::Gold, std::move(Matrix::Default_Matrix));
+        Group g(&Materials::Gold);
+        reader.copy_data(g);
+
+    }
+
+}
+
+namespace Utility {
+
+    class timer {
+    public:
+        timer() {    
+            start = std::chrono::high_resolution_clock::now();
+        }
+        void get_time(const std::string& msg) {
+			auto end = std::chrono::high_resolution_clock::now();
+			auto start_ts = std::chrono::time_point_cast<std::chrono::milliseconds> (start).time_since_epoch().count();
+			auto end_ts = std::chrono::time_point_cast<std::chrono::milliseconds> (end).time_since_epoch().count();
+			float duration = (float)end_ts - (float)start_ts;
+			std::cout << msg << " took " << duration << " milliseconds.\n";
+        }
+    private:
+        std::chrono::time_point<std::chrono::high_resolution_clock> start;  
+    };
 }
 
 
@@ -105,11 +191,19 @@ void render(
 int main()
 {
     //RayTracer::UnitTestMatVec();
-    RayTracer::UnitTestTriangle();
+    //RayTracer::UnitTestCube();
+    //RayTracer::UnitTestPattern();
+    //RayTracer::UnitTestGroup();
+    //RayTracer::UnitTestReader();
+    
+
+    Utility::timer t;
 
     RayTracer::World world;
     RayTracer::Camera camera;
     RayTracer::Image_Buffer image;
+    
+    t.get_time("Loading World");
 
     const int height = image.getHeight();
     const int width = image.getWidth();
@@ -120,7 +214,12 @@ int main()
             render(i, j, width, height, world, camera, image);
         }
     }
+
+    t.get_time("Render");
+
     image.save();
+    t.get_time("Save");
+    
 
 }
 

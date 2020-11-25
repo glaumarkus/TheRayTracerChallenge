@@ -590,6 +590,10 @@ Mat4 transform(
     return matrix;
 }
 
+namespace Matrix {
+    Mat4 Default_Matrix = Mat4();
+}
+
 
 }
 

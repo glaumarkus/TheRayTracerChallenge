@@ -1,0 +1,15 @@
+﻿  TheRayTracerChallenge.cpp
+  The contents of <string_view> are available only with C++17 or later.
+C:\Users\GLAUMAR\source\repos\TheRayTracerChallenge\TheRayTracerChallenge\src\include\OBJ_Reader.h(74,25): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+C:\Users\GLAUMAR\source\repos\TheRayTracerChallenge\TheRayTracerChallenge\src\include\OBJ_Reader.h(91,25): warning C4018: "<": Konflikt zwischen "signed" und "unsigned"
+C:\Users\GLAUMAR\source\repos\TheRayTracerChallenge\TheRayTracerChallenge\src\TheRayTracerChallenge.cpp(88,62): warning C4305: "Argument": Verkürzung von "double" in "const float"
+C:\Users\GLAUMAR\source\repos\TheRayTracerChallenge\TheRayTracerChallenge\src\TheRayTracerChallenge.cpp(92,51): warning C4305: "Argument": Verkürzung von "double" in "const float"
+C:\Users\GLAUMAR\source\repos\TheRayTracerChallenge\TheRayTracerChallenge\src\TheRayTracerChallenge.cpp(93,52): warning C4305: "Argument": Verkürzung von "double" in "const float"
+C:\Users\GLAUMAR\source\repos\TheRayTracerChallenge\TheRayTracerChallenge\src\TheRayTracerChallenge.cpp(94,52): warning C4305: "Argument": Verkürzung von "double" in "const float"
+C:\Users\GLAUMAR\source\repos\TheRayTracerChallenge\TheRayTracerChallenge\src\TheRayTracerChallenge.cpp(107,21): warning C4305: "Argument": Verkürzung von "double" in "const float"
+  Code wird generiert.
+  1 of 744 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    2 functions had inline decision re-evaluated but remain unchanged
+  Codegenerierung ist abgeschlossen.
+  TheRayTracerChallenge.vcxproj -> C:\Users\GLAUMAR\source\repos\TheRayTracerChallenge\Release\TheRayTracerChallenge.exe

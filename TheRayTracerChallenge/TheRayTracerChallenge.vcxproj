@@ -145,6 +145,7 @@
     <ClCompile Include="src\TheRayTracerChallenge.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\include\Pattern.h" />
     <ClInclude Include="src\include\OBJ_Reader.h" />
     <ClInclude Include="src\include\Camera.h" />
     <ClInclude Include="src\include\Comps.h" />

@@ -11,12 +11,12 @@ namespace RayTracer {
 
 		Camera() :
 			// error here?
-			origin(Vec4(-20, 0, 0, 1)), 
-			forward(Vec4(1,0,0)),
+			origin(Vec4(0, -30, 0, 1)), 
+			forward(Vec4(0,1,0)),
 			up(Vec4(0,0,1)),
-			right(Vec4(0,-1,0))
+			right(Vec4(1,0,0))
 		{
-			h = tan(10.0f * PI / 180.f);
+			h = tan(15.0f * PI / 180.f);
 			w = h * 1;
 		}
 

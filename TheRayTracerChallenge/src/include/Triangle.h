@@ -37,7 +37,7 @@ namespace RayTracer {
 			e1(*v2 - *v1),
 			e2(*v3 - *v1),
 			has_normal(1),
-			normal()
+			normal(1)
 		{}
 
 		void intersection_test(Intersection& i, const Ray& ray) {
@@ -59,7 +59,7 @@ namespace RayTracer {
 			if (v < 0 || (u + v) > 1) return;
 
 			float t = f * dot(e2, origin_cross_e1);
-			i.checkIntersection(t, this);
+			i.checkIntersection(t, u, v, this);
 		}
 
 		Vec4 normal_at(const Vec4& point, const float& u, const float& v) {
@@ -70,9 +70,26 @@ namespace RayTracer {
 			return Vec4(*normal_v2 * u + *normal_v3 * v + *normal_v1 * (1 - u - v));
 		}
 
+		Vec4 getLocalPoint(const Vec4& point) {
+			return point;
+		}
+
+		Utility::shape_bounds getBounds() {
+			Utility::shape_bounds bounds;
+			bounds.x[0] = Utility::min3f(vertex1->x, vertex2->x, vertex3->x);
+			bounds.x[1] = Utility::max3f(vertex1->x, vertex2->x, vertex3->x);
+			bounds.y[0] = Utility::min3f(vertex1->y, vertex2->y, vertex3->y);
+			bounds.y[1] = Utility::max3f(vertex1->y, vertex2->y, vertex3->y);
+			bounds.z[0] = Utility::min3f(vertex1->z, vertex2->z, vertex3->z);
+			bounds.z[1] = Utility::max3f(vertex1->z, vertex2->z, vertex3->z);
+			return bounds;
+		}
+
 		float shadow_intersection() { return 0.0f; }
 
 	protected:
+
+
 		
 		// Positions
 		const Vec4* vertex1;

@@ -21,16 +21,19 @@ namespace RayTracer {
 
 	protected:
 
+		friend class Group;
+
 		void local_intersection_test(Intersection& i, const Ray& ray) {
 
 			t_helper xt = check_axis(ray.origin.x, ray.direction.x);
 			t_helper yt = check_axis(ray.origin.y, ray.direction.y);
 			t_helper zt = check_axis(ray.origin.z, ray.direction.z);
 			
-			float t1 = max3f(xt.t1, yt.t1, zt.t1);
-			float t2 = min3f(xt.t2, yt.t2, zt.t2);
+			float t1 = Utility::max3f(xt.t1, yt.t1, zt.t1);
+			float t2 = Utility::min3f(xt.t2, yt.t2, zt.t2);
 
 			if (t1 > t2) return;
+
 			// optional u,v
 			i.checkIntersection(t1, this);
 			i.checkIntersection(t2, this);
@@ -44,7 +47,7 @@ namespace RayTracer {
 			ax = std::abs(transformed_point.x);
 			ay = std::abs(transformed_point.y);
 			az = std::abs(transformed_point.z);
-			float maxv = max3f(ax, ay, az);
+			float maxv = Utility::max3f(ax, ay, az);
 
 			if (maxv == ax)
 				normal.x = transformed_point.x;
@@ -90,12 +93,6 @@ namespace RayTracer {
 		}
 
 
-		float max3f(const float& f1, const float& f2, const float& f3) {
-			return f1 > f2 ? (f1 > f3 ? f1 : f3) : (f2 > f3 ? f2 : f3);
-		}
-		float min3f(const float& f1, const float& f2, const float& f3) {
-			return f1 < f2 ? (f1 < f3 ? f1 : f3) : (f2 < f3 ? f2 : f3);
-		}
 
 	};
 

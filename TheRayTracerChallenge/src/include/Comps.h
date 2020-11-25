@@ -13,6 +13,7 @@ namespace RayTracer {
 		Vec4 point;
 		Vec4 under_point;
 		Vec4 over_point;
+		Vec4 local_point;
 
 		Vec4 eye_vector;
 		Vec4 normal_vector;
@@ -21,6 +22,7 @@ namespace RayTracer {
 
 		bool inside;
 		Material* material;
+		
 
 	};
 
@@ -35,6 +37,8 @@ namespace RayTracer {
 		comps.over_point = comps.point + EPSILON * comps.normal_vector;
 		comps.eye_vector = ray.direction * -1;
         comps.material = intersection.observation.hit->getMaterial();
+		comps.local_point = intersection.observation.hit->getLocalPoint(comps.point);
+		//comps.hit = intersection.observation.hit;
 
 		comps.reflect_vector = reflect(ray.direction, comps.normal_vector);
 		//comps.refract_vector

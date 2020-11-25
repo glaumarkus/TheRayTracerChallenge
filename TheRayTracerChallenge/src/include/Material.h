@@ -2,6 +2,7 @@
 #define INCLUDE_MATERIAL_H
 
 #include "Color.h"
+#include "Pattern.h"
 
 namespace RayTracer {
 
@@ -16,7 +17,8 @@ namespace RayTracer {
             shinyness(20),
             reflective(0.0f),
             transparent(0.0f),
-            refractive(1.0f) 
+            refractive(1.0f),
+            pattern(nullptr)
         {}
 
         Material(const Color& ambient, const Color& diffuse, const Color& specular, const float& shinyness) :
@@ -26,7 +28,8 @@ namespace RayTracer {
             shinyness(shinyness),
             reflective(0.0f),
             transparent(0.0f),
-            refractive(1.0f)
+			refractive(1.0f), 
+			pattern(nullptr)
         {}
 
         Material(const Color& ambient, const Color& diffuse, const Color& specular, const float& shinyness, const float& reflective, const float& transparent, const float& refractive) :
@@ -36,8 +39,20 @@ namespace RayTracer {
             shinyness(shinyness),
             reflective(reflective),
             transparent(transparent),
-            refractive(refractive)
+			refractive(refractive),
+			pattern(nullptr)
         {}
+
+		Material(const Color& ambient, const Color& diffuse, const Color& specular, const float& shinyness, const float& reflective, const float& transparent, const float& refractive, Pattern* patternIN) :
+			ambient(ambient),
+			diffuse(diffuse),
+			specular(specular),
+			shinyness(shinyness),
+			reflective(reflective),
+			transparent(transparent),
+			refractive(refractive),
+			pattern(patternIN)
+		{}
 
         Material(const float& ambientF, const float& diffuseF, const float& specularF, const float& shinyness) :
             ambient(Color(ambientF)),
@@ -46,7 +61,8 @@ namespace RayTracer {
             shinyness(shinyness),
             reflective(0.0f),
             transparent(0.0f),
-            refractive(1.0f)
+			refractive(1.0f),
+			pattern(nullptr)
         {}
 
         Material(const Material& other) {
@@ -59,6 +75,12 @@ namespace RayTracer {
             refractive = other.refractive;
         }
 
+        ~Material() {
+            //delete pattern;
+        }
+
+
+
 
         Material& operator =(const Material& other) {
             ambient = other.ambient;
@@ -70,6 +92,8 @@ namespace RayTracer {
             refractive = other.refractive;
             return *this;
         }
+
+        Pattern* pattern;
 
         Color ambient;
         Color diffuse;
@@ -127,6 +151,22 @@ namespace RayTracer {
             Color(0.05375f, 0.05f, 0.06625f),
             Color(0.18275f, 0.17f, 0.22525f),
             Color(0.332741f, 0.328634f, 0.346435f), 38.4f);
+
+        Material White(
+            Color(1.0f),
+            Color(1.0f),
+            Color(1.0f), 0.0f);
+
+		Material Black(
+			Color(0.0f),
+			Color(0.4f),
+			Color(0.7f), 20.0f);
+
+		Material Stripes(
+			Color(1.0f),
+			Color(1.0f),
+			Color(1.0f), 0.0f, 0.0f, 0.0f, 1.0f, Patterns::striped);
+
     }
 
 }
