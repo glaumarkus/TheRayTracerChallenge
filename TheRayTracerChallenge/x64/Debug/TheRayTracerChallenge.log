@@ -1,4 +1,1 @@
-﻿  TheRayTracerChallenge.cpp
-C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\include\World.h(118,40): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "int", Datenverlust möglich
-C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\include\World.h(172,40): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "int", Datenverlust möglich
-  TheRayTracerChallenge.vcxproj -> C:\Users\glaum\Source\Repos\glaumarkus\TheRayTracerChallenge\x64\Debug\TheRayTracerChallenge.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.MakeFile.Targets(44,5): warning MSB8005: Die Eigenschaft "NMakeBuildCommandLine" ist nicht vorhanden.  Überspringen...

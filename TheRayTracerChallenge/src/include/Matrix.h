@@ -569,8 +569,11 @@ Mat4 transform(
 ) {
     Mat4 matrix;
 
-	if (xy != 0.0f || xz != 0.0f || yx != 0.0f || yz != 0.0f || zx != 0.0f || zy != 0.0f)
-		matrix = matrix * shear(xy, xz, yx, yz, zx, zy);
+    if (x_translate != 0.0f || y_translate != 0.0f || y_translate == 0.0f)
+        matrix = matrix * translate(x_translate, y_translate, z_translate);
+
+    if (x_scale != 1.0f || y_scale != 1.0f || z_scale != 1.0f)
+        matrix = matrix * scale(x_scale, y_scale, z_scale);
 
 	if (x_rotate != 0.0f)
 		matrix = matrix * rotate_x(x_rotate);
@@ -581,11 +584,9 @@ Mat4 transform(
 	if (z_rotate != 0.0f)
 		matrix = matrix * rotate_z(z_rotate);
 
-	if (x_scale != 1.0f || y_scale != 1.0f || z_scale != 1.0f)
-		matrix = matrix * scale(x_scale, y_scale, z_scale);
+    if (xy != 0.0f || xz != 0.0f || yx != 0.0f || yz != 0.0f || zx != 0.0f || zy != 0.0f)
+        matrix = matrix * shear(xy, xz, yx, yz, zx, zy);
 
-    if (x_translate != 0.0f || y_translate != 0.0f || y_translate == 0.0f)
-        matrix = matrix * translate(x_translate, y_translate, z_translate); 
 
     return matrix;
 }

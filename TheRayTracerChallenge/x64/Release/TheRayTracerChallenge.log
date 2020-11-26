@@ -1,0 +1,17 @@
+﻿  TheRayTracerChallenge.cpp
+C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\include\hittable.h(48,32): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "int", Datenverlust möglich
+C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\include\Group.h(52,14): warning C4267: "return": Konvertierung von "size_t" nach "int", Datenverlust möglich
+  The contents of <string_view> are available only with C++17 or later.
+C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\include\World.h(252,40): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "int", Datenverlust möglich
+C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\include\World.h(314,40): warning C4267: "Initialisierung": Konvertierung von "size_t" nach "int", Datenverlust möglich
+C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\TheRayTracerChallenge.cpp(88,62): warning C4305: "Argument": Verkürzung von "double" in "const float"
+C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\TheRayTracerChallenge.cpp(92,51): warning C4305: "Argument": Verkürzung von "double" in "const float"
+C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\TheRayTracerChallenge.cpp(93,52): warning C4305: "Argument": Verkürzung von "double" in "const float"
+C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\TheRayTracerChallenge.cpp(94,52): warning C4305: "Argument": Verkürzung von "double" in "const float"
+C:\Users\glaum\source\repos\glaumarkus\TheRayTracerChallenge\TheRayTracerChallenge\src\TheRayTracerChallenge.cpp(107,21): warning C4305: "Argument": Verkürzung von "double" in "const float"
+  Code wird generiert.
+  2 of 735 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Codegenerierung ist abgeschlossen.
+  TheRayTracerChallenge.vcxproj -> C:\Users\glaum\Source\Repos\glaumarkus\TheRayTracerChallenge\x64\Release\TheRayTracerChallenge.exe

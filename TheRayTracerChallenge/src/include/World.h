@@ -58,14 +58,29 @@ namespace RayTracer {
 		SphereLight* light_sphere = new SphereLight(Color(0.9f), Vec4(-50, -50, 50, 1), 10, 5.0f);
 		light_objects.push_back(light_sphere);
 
+		Group* g = new Group(&Materials::Brass);
 
-		std::string obj_file = "objects/Dragon.obj";
-		//std::string obj_file = "objects/teapot.obj";
-		OBJ_Reader reader(obj_file, &Materials::Gold, transform(0,0,0,2.5,2.5,2.5));
-		//OBJ_Reader reader(obj_file, &Materials::Gold, std::move(scale(3,3,3)));
-		Group* g = new Group(translate(0,0,0),&Materials::Gold);
+		//Sphere* s1 = new Sphere(transform(3.0f, -2.0f, 0.5f, 2.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Gold);
+		Sphere* s2 = new Sphere(scale(5.0f, 5.0f, 5.0f), &Materials::Emerald);
+
+		//g->add_child(s1);
+		g->add_child(s2);
+		g->set_bounds();
+		hittable_objects.push_back(g);
+
+		Plane* p = new Plane(translate(0, 0, -5), &Materials::Obsidian);
+		hittable_objects.push_back(p);
+
+		/*
+
+		//std::string obj_file = "objects/Dragon.obj";
+		std::string obj_file = "objects/teapot.obj";
+		//OBJ_Reader reader(obj_file, &Materials::Gold, transform(0,0,0,2.5,2.5,2.5));
+		OBJ_Reader reader(obj_file, &Materials::Gold, std::move(scale(0.5,0.5,0.5)));
+		Group* g = new Group(translate(0,0,-3),&Materials::Gold);
 		reader.copy_data(*g);
 		hittable_objects.push_back(g);
+		*/
 		/*
 		Plane* p1 = new Plane(transform(0, 0, -5,1,1,1,-PI/2), &Materials::Stripes);
 		hittable_objects.push_back(p1);
