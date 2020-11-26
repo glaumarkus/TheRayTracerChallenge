@@ -167,6 +167,12 @@ namespace RayTracer {
 			Color(1.0f),
 			Color(1.0f), 0.0f, 0.0f, 0.0f, 1.0f, Patterns::striped);
 
+        Material Reflective_Chrome(
+            Color(0.25f, 0.25f, 0.25f),
+            Color(0.4f, 0.4f, 0.4f),
+            Color(0.774597f, 0.774597f, 0.774597f), 76.8f, 0.8f, 0.0f, 1.0f);
+
+
     }
 
 }

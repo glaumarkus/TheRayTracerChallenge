@@ -61,7 +61,13 @@ namespace RayTracer {
 		Group* g = new Group(&Materials::Brass);
 
 		//Sphere* s1 = new Sphere(transform(3.0f, -2.0f, 0.5f, 2.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Gold);
-		Sphere* s2 = new Sphere(scale(5.0f, 5.0f, 5.0f), &Materials::Emerald);
+		//Sphere* s2 = new Sphere(scale(5.0f, 5.0f, 5.0f), &Materials::Reflective_Chrome);
+
+		Sphere* s1 = new Sphere(transform(6.0f, 0.0f, 0.0f, 3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Reflective_Chrome);
+		hittable_objects.push_back(s1);
+		
+		Sphere* s2 = new Sphere(scale(5.0f, 5.0f, 5.0f), &Materials::Gold);
+		hittable_objects.push_back(s2);
 
 		//g->add_child(s1);
 		g->add_child(s2);
@@ -261,6 +267,7 @@ namespace RayTracer {
 	Color World::color_at(const Comps& comps, int num_recursions) const {
 
 		Color pixel_color;
+		Color reflection_color;
 
 		// calculate shade intensity
 		float shade_intensity = 0.0f;
@@ -292,9 +299,6 @@ namespace RayTracer {
 
 	Color World::lighting_model(const Comps& comps, const Light* light, const float& shade_intensity) const {
 
-		/*
-		* Does it have a pattern?
-		*/
 		Color lighted_color = light->intensity;
 
 		if (comps.material->pattern == nullptr)
@@ -320,7 +324,6 @@ namespace RayTracer {
 		lighted_color.clamp();
 		return lighted_color;
 	}
-
 
 
 	float World::shade_intensity_at(const Comps& comps, const Light* light) const {

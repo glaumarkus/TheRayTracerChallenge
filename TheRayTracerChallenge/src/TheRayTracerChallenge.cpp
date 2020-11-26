@@ -12,8 +12,11 @@
 
 constexpr int NUM_RECURSIONS = 3;
 
-
 namespace RayTracer {
+
+    void UnitTestReflection() {
+
+    }
 
     void UnitTestMatTranslation() {
         Vec4 p(-3, 4, 5, 1);
@@ -159,6 +162,7 @@ namespace Utility {
 }
 
 
+
 void render(
     const int& i, const int& j, const int& width, const int& height,
     const RayTracer::World& localWorld, 
@@ -166,19 +170,19 @@ void render(
     RayTracer::Image_Buffer& image_buffer
     ) {
 
-    int pixel_index = i * height + j;
+    const int pixel_index = i * height + j;
     
     // Camera Ray
-    float X = 2.0f * float(i) / float(width) - 1;
-    float Y = -2.0f * float(j) / float(height) + 1;
+    const float X = 2.0f * float(i) / float(width) - 1;
+    const float Y = -2.0f * float(j) / float(height) + 1;
 
-    RayTracer::Ray ray = camera.getRay(X, Y);
+    const RayTracer::Ray ray = camera.getRay(X, Y);
     RayTracer::Intersection intersection;
 
     localWorld.intersection_test(intersection, ray);
 
     if (intersection.observation.hit != nullptr) {
-        RayTracer::Comps comps = RayTracer::prepare_computations(intersection, ray);
+        const RayTracer::Comps comps = RayTracer::prepare_computations(intersection, ray);
         image_buffer[pixel_index] = localWorld.color_at(comps, NUM_RECURSIONS);
     }
     else {
@@ -188,14 +192,10 @@ void render(
 }
 
 
+
 int main()
 {
-    //RayTracer::UnitTestMatVec();
-    //RayTracer::UnitTestCube();
-    //RayTracer::UnitTestPattern();
-    //RayTracer::UnitTestGroup();
-    //RayTracer::UnitTestReader();
-    
+
 
     Utility::timer t;
 
