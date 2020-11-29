@@ -53,6 +53,8 @@ namespace RayTracer {
 
 		for (it = cpy.begin(); it != cpy.end(); it++) {
 
+
+			// TODO correct this
 			if (it->hit == intersection.observation.hit) {
 
 				if (tmp.size() == 0) {

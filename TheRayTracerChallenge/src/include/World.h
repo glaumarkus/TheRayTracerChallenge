@@ -87,7 +87,7 @@ namespace RayTracer {
 		*/
 
 		Material* temp = new Material(Color(0.05, 0.05, 0.05), Color(0), Color(0.8), 200.0f, 0.0f, 1.0f, 1.5f);
-		Material* temp2 = new Material(Color(0), Color(0), Color(0), 0.0f, 0.0f, 1.0f, 1.0f);
+		Material* temp2 = new Material(Color(0), Color(0), Color(0), 0.0f, 1.0f, 0.0f, 1.0f);
 
 		Sphere* s1 = new Sphere(transform(0, -5, 0, 5, 5, 5), temp);
 		Sphere* s2 = new Sphere(transform(0, -2.5, 0, 1, 1, 1), temp2);
