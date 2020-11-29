@@ -3,6 +3,7 @@
 
 #include <cmath>
 
+#include "Utility.h"
 #include "Vec4.h"
 #include "Matrix.h"
 #include "Material.h"
@@ -12,56 +13,7 @@
 
 namespace RayTracer {
 
-	namespace Utility {
 
-		struct vertex_idx {
-			int v, vn, vt;
-		};
-
-		struct shape_bounds {
-			float x[2] = {INFINITY, -INFINITY};
-			float y[2] = { INFINITY, -INFINITY };
-			float z[2] = { INFINITY, -INFINITY };
-
-			shape_bounds& operator =(const shape_bounds& other) {
-
-				if (x[0] > other.x[0]) x[0] = other.x[0];
-				if (y[0] > other.y[0]) y[0] = other.y[0];
-				if (z[0] > other.z[0]) z[0] = other.z[0];
-				if (x[1] < other.x[1]) x[1] = other.x[1];
-				if (y[1] < other.y[1]) y[1] = other.y[1];
-				if (z[1] < other.z[1]) z[1] = other.z[1];
-
-				return *this;
-			}
-		};
-
-		inline float max3f(const float& f1, const float& f2, const float& f3) {
-			return f1 > f2 ? (f1 > f3 ? f1 : f3) : (f2 > f3 ? f2 : f3);
-		}
-		inline float min3f(const float& f1, const float& f2, const float& f3) {
-			return f1 < f2 ? (f1 < f3 ? f1 : f3) : (f2 < f3 ? f2 : f3);
-		}
-
-		void split(std::string str, const std::string& token, std::vector<std::string>& result) {
-			while (str.size()) {
-				int index = str.find(token);
-				if (index != std::string::npos) {
-					result.push_back(str.substr(0, index));
-					str = str.substr(index + token.size());
-					if (str.size() == 0)
-						result.push_back(str);
-				}
-				else {
-					result.push_back(str);
-					str = "";
-				}
-			}
-		}
-
-	}
-
-	
 
 	class hittable {
 
@@ -159,18 +111,15 @@ namespace RayTracer {
 
 		
 		Utility::shape_bounds getBounds() {
-			Utility::shape_bounds bounds;
-			bounds.x[0] = -1;
-			bounds.x[1] = 1;
-			bounds.y[0] = -1;
-			bounds.y[1] = 1;
-			bounds.z[0] = -1;
-			bounds.z[1] = 1;
-			return bounds;
+
+			/*
+			* edit values 
+			*/
+			const Vec4 transformed_min(transformation * Utility::default_min_bounds);
+			const Vec4 transformed_max(transformation * Utility::default_max_bounds);
+			return Utility::shape_bounds(transformed_min, transformed_max);;
 		}
 		
-		
-
 		float shadow_intersection() { return 1.0f; }
 
 

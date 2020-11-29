@@ -75,14 +75,7 @@ namespace RayTracer {
 		}
 
 		Utility::shape_bounds getBounds() {
-			Utility::shape_bounds bounds;
-			bounds.x[0] = Utility::min3f(vertex1->x, vertex2->x, vertex3->x);
-			bounds.x[1] = Utility::max3f(vertex1->x, vertex2->x, vertex3->x);
-			bounds.y[0] = Utility::min3f(vertex1->y, vertex2->y, vertex3->y);
-			bounds.y[1] = Utility::max3f(vertex1->y, vertex2->y, vertex3->y);
-			bounds.z[0] = Utility::min3f(vertex1->z, vertex2->z, vertex3->z);
-			bounds.z[1] = Utility::max3f(vertex1->z, vertex2->z, vertex3->z);
-			return bounds;
+			return Utility::shape_bounds(*vertex1, *vertex2, *vertex3);
 		}
 
 		float shadow_intersection() { return 0.0f; }

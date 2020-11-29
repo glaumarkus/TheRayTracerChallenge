@@ -14,7 +14,7 @@ namespace RayTracer {
 			origin(Vec4(0, -30, 0, 1)), 
 			forward(Vec4(0,1,0)),
 			up(Vec4(0,0,1)),
-			right(Vec4(1,0,0))
+			right(Vec4(-1,0,0))
 		{
 			h = tan(20.0f * PI / 180.f);
 			w = h * 1;

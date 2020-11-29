@@ -1,6 +1,8 @@
 #ifndef INCLUDE_INTERSECTION_HPP
 #define INCLUDE_INTERSECTION_HPP
 
+#include <list>
+
 #include "Vec4.h"
 #include "Ray.h"
 #include "Observation.h"
@@ -24,6 +26,7 @@ namespace RayTracer {
                     observation = Observation(t, hit);
                 }
             }
+            observations.emplace_back(t, hit);
         }
 
         void checkIntersection(const float& t, const float& u, const float& v, hittable* hit) {
@@ -32,9 +35,11 @@ namespace RayTracer {
                     observation = Observation(t, u, v, hit);
                 }
             }
+            observations.emplace_back(t, u, v, hit);
         }
 
         Observation observation;
+        std::list<Observation> observations;
 
     };
 

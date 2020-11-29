@@ -10,11 +10,29 @@
 
 #include "include/OBJ_Reader.h"
 
-constexpr int NUM_RECURSIONS = 3;
+constexpr int NUM_RECURSIONS = 10;
 
 namespace RayTracer {
 
     void UnitTestReflection() {
+
+        World world("testing world");
+
+        Ray ray(Vec4(0,0,-1.75,1), Vec4(0,0,1));
+        Intersection i;
+
+        world.intersection_test(i, ray);
+
+        if (i.observation.hit != nullptr) {
+            const RayTracer::Comps comps = RayTracer::prepare_computations(i, ray);
+            Color test = world.color_at(comps, 10);
+        }
+
+
+
+
+
+
 
     }
 
@@ -195,7 +213,7 @@ void render(
 
 int main()
 {
-
+    //RayTracer::UnitTestReflection();
 
     Utility::timer t;
 

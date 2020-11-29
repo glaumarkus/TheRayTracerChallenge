@@ -106,5 +106,8 @@
     <ClInclude Include="src\include\Pattern.h">
       <Filter>Colors</Filter>
     </ClInclude>
+    <ClInclude Include="src\include\Utility.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

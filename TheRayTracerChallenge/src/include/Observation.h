@@ -3,8 +3,6 @@
 
 #include "Vec4.h"
 
-
-
 namespace RayTracer {
 
 	// placeholder for objects
@@ -38,7 +36,7 @@ namespace RayTracer {
 			t(other.t),
 			u(other.u),
 			v(other.v),
-			hit(hit)
+			hit(other.hit)
 		{}
 
 		Observation& operator =(const Observation& other) {
@@ -47,6 +45,23 @@ namespace RayTracer {
 			v = other.v;
 			hit = other.hit;
 			return *this;
+		}
+
+		bool operator >(const Observation& other) const {
+			return t > other.t ? true : false;
+		}
+
+		
+		bool operator <(const Observation& other) const {
+			return t < other.t ? true : false;
+		}
+
+		bool operator ==(const Observation& other)  {
+			return std::fabs(t - other.t) < EPSILON ? true : false;
+		}
+
+		bool operator !=(const Observation& other)  {
+			return std::fabs(t - other.t) > EPSILON ? true : false;
 		}
 
 		float t;

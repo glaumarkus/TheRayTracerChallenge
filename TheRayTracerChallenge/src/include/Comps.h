@@ -4,6 +4,7 @@
 #include "Intersection.h"
 #include "hittable.h"
 
+#include <list>
 
 namespace RayTracer {
 
@@ -22,9 +23,69 @@ namespace RayTracer {
 
 		bool inside;
 		Material* material;
-		
 
+		float n1;
+		float n2;
+		
 	};
+
+	void check_container(std::list<Observation>& l, const Observation& obs) {
+
+		for (auto it = l.begin(); it != l.end(); it++) {
+			if (it->hit == obs.hit) {
+				l.erase(it);
+				return;
+			}
+		}
+		l.push_back(obs);
+	}
+
+	void get_n1n2(const Intersection& intersection, Comps& comps) {
+
+		// first start by sorting intersection list
+		std::list<Observation> cpy = intersection.observations;
+		cpy.sort();
+
+		std::list<Observation>::iterator it;
+		std::list<Observation> tmp;
+
+		// for each observation in list
+
+		for (it = cpy.begin(); it != cpy.end(); it++) {
+
+			if (it->hit == intersection.observation.hit) {
+
+				if (tmp.size() == 0) {
+					comps.n1 = 1.0f;
+				}
+				else {
+					std::list<Observation>::iterator last = it;
+					last--;
+					comps.n1 = last->hit->getMaterial()->refractive;
+				}
+			}
+
+			check_container(tmp, *it);
+
+			if (it->hit == intersection.observation.hit) {
+
+				if (tmp.size() == 0) {
+					comps.n2 = 1.0f;
+				}
+				else {
+					std::list<Observation>::iterator last = tmp.end();
+					last--;
+					comps.n2 = last->hit->getMaterial()->refractive;
+				}
+
+				return;
+			}
+		}
+
+		std::cout << "n1: " << comps.n1 << "\tn2: " << comps.n2 << "\n";
+	}
+
+	
 
 	Comps prepare_computations(const Intersection& intersection, const Ray& ray) {
 
@@ -41,10 +102,12 @@ namespace RayTracer {
 		//comps.hit = intersection.observation.hit;
 
 		comps.reflect_vector = reflect(ray.direction, comps.normal_vector);
-		//comps.refract_vector
+
+		if (comps.material->transparent > 0.0f) {
+			get_n1n2(intersection, comps);
+		}
 
 		float nDotE = dot(comps.normal_vector, comps.eye_vector);
-
 		if (nDotE < 0) comps.normal_vector = comps.normal_vector * -1;
 
 		return comps;

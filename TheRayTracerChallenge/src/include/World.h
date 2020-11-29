@@ -51,31 +51,51 @@ namespace RayTracer {
 	// default world
 	World::World() {
 
+
+		
 		/*
 		Light* light = new Light(Color(0.9f), Vec4(-50, 50, 50, 1));
 		light_objects.push_back(light);
 		*/
+
+
 		SphereLight* light_sphere = new SphereLight(Color(0.9f), Vec4(-50, -50, 50, 1), 10, 5.0f);
 		light_objects.push_back(light_sphere);
 
-		Group* g = new Group(&Materials::Brass);
+		//Group* g = new Group(&Materials::Brass);
 
 		//Sphere* s1 = new Sphere(transform(3.0f, -2.0f, 0.5f, 2.0f, 2.0f, 2.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Gold);
 		//Sphere* s2 = new Sphere(scale(5.0f, 5.0f, 5.0f), &Materials::Reflective_Chrome);
 
-		Sphere* s1 = new Sphere(transform(6.0f, 0.0f, 0.0f, 3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Reflective_Chrome);
-		hittable_objects.push_back(s1);
-		
-		Sphere* s2 = new Sphere(scale(5.0f, 5.0f, 5.0f), &Materials::Gold);
-		hittable_objects.push_back(s2);
+		/*
 
-		//g->add_child(s1);
+		Sphere* s1 = new Sphere(transform(6.0f, 0.0f, 0.0f, 3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Reflective_Chrome);
+		Sphere* s2 = new Sphere(transform(-6.0f, 0.0f, 0.0f, 3.0f, 3.0f, 3.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f), &Materials::Glass);
+		Sphere* s3 = new Sphere(Matrix::Default_Matrix, &Materials::Gold);
+		Group* g = new Group(&Materials::Brass);
+
+
+		hittable_objects.push_back(s1);
+		hittable_objects.push_back(s2);
+		hittable_objects.push_back(s3);
+		*/
+		/*
+		g->add_child(s1);
 		g->add_child(s2);
 		g->set_bounds();
 		hittable_objects.push_back(g);
+		*/
 
-		Plane* p = new Plane(translate(0, 0, -5), &Materials::Obsidian);
+		Material* temp = new Material(Color(0.05, 0.05, 0.05), Color(0), Color(0.8), 200.0f, 0.0f, 1.0f, 1.5f);
+		Material* temp2 = new Material(Color(0), Color(0), Color(0), 0.0f, 0.0f, 1.0f, 1.0f);
+
+		Sphere* s1 = new Sphere(transform(0, -5, 0, 5, 5, 5), temp);
+		Sphere* s2 = new Sphere(transform(0, -2.5, 0, 1, 1, 1), temp2);
+
+		Plane* p = new Plane(rotate_x(-PI / 2), &Materials::Checkboard);
 		hittable_objects.push_back(p);
+		hittable_objects.push_back(s1);
+		hittable_objects.push_back(s2);
 
 		/*
 
@@ -247,6 +267,29 @@ namespace RayTracer {
 
 	// TODO: implement reader
 	World::World(std::string&& filename) {
+
+		/*
+
+		Sphere* s1 = new Sphere(scale(2, 2, 2), &Materials::Glass);
+		Sphere* s2 = new Sphere(translate(0, 0, -0.25f), &Materials::Water);
+		Sphere* s3 = new Sphere(translate(0, 0, 0.25f), &Materials::Diamond);
+
+		hittable_objects.push_back(s1);
+		hittable_objects.push_back(s2);
+		hittable_objects.push_back(s3);
+
+		*/
+
+		/*
+		Material temp(Color(0,0,0), Color(0), Color(0), 0.0f, 0.0f,0.5f, 1.5f);
+		Material temp2(Color(0.5, 0, 0), Color(0), Color(0),0.0f);
+
+		Plane* p = new Plane(translate(0, -1, 0), &temp);
+		Sphere* s = new Sphere(translate(0, -3.5, -0.5), &temp2);
+
+		hittable_objects.push_back(p);
+		hittable_objects.push_back(s);
+		*/
 	}
 
 	World::~World() {
@@ -264,10 +307,11 @@ namespace RayTracer {
 	}
 
 
-	Color World::color_at(const Comps& comps, int num_recursions) const {
+	Color World::color_at(const Comps& comps, const int num_recursions) const {
 
 		Color pixel_color;
 		Color reflection_color;
+		Color refraction_color;
 
 		// calculate shade intensity
 		float shade_intensity = 0.0f;
@@ -284,14 +328,17 @@ namespace RayTracer {
 
 		// reflection & refraction
 		if (comps.material->reflective > 0.0f && num_recursions >= 0) {
-			Color reflection_color = reflection_at(comps, num_recursions);
+			reflection_color = reflection_at(comps, num_recursions);
+			pixel_color += reflection_color;
 		}
 
 		if (comps.material->transparent > 0.0f && num_recursions >= 0) {
-			Color refraction_color = refraction_at(comps, num_recursions);
+			refraction_color = refraction_at(comps, num_recursions);
+			pixel_color += refraction_color;
 		}
 
 		pixel_color /= (float)num_lights;
+		pixel_color.clamp();
 
 		return pixel_color;
 
@@ -306,22 +353,20 @@ namespace RayTracer {
 		else
 			lighted_color *= comps.material->pattern->color_at(comps.local_point);
 
-		Vec4 light_vector = (light->position - comps.point).normalize();
-		float lightDotNormal = dot(light_vector, comps.normal_vector);
+		const Vec4 light_vector = (light->position - comps.point).normalize();
+		const float lightDotNormal = dot(light_vector, comps.normal_vector);
 
 		if (lightDotNormal > 0) {
 
 			lighted_color += comps.material->diffuse * lightDotNormal * shade_intensity;
 
-			float reflectDotEye = dot(comps.reflect_vector, light_vector);
+			const float reflectDotEye = dot(comps.reflect_vector, light_vector);
 			if (reflectDotEye > 0 && shade_intensity > 0.0f) {
-				float factor = std::pow(reflectDotEye, comps.material->shinyness);
-				if (factor > 0.5f) 
-					int x = 0;
+				const float factor = std::pow(reflectDotEye, comps.material->shinyness);
 				lighted_color += light->intensity * comps.material->specular * factor;
 			}
 		}
-		lighted_color.clamp();
+		//lighted_color.clamp();
 		return lighted_color;
 	}
 
@@ -355,43 +400,40 @@ namespace RayTracer {
 
 		Color reflection_color(0);
 
-		Ray reflection_ray(comps.over_point, comps.reflect_vector);
+		const Ray reflection_ray(comps.over_point, comps.reflect_vector);
 		Intersection reflection_intersection;
 
 		intersection_test(reflection_intersection, reflection_ray);
 
 		if (reflection_intersection.observation.hit != nullptr) {
-			Comps comps = prepare_computations(reflection_intersection, reflection_ray);
-			reflection_color = color_at(comps, --num_recursions);
+			const Comps reflection_comps = prepare_computations(reflection_intersection, reflection_ray);
+			reflection_color = color_at(reflection_comps, num_recursions - 1);
 		}
-		return reflection_color;
+		return reflection_color * comps.material->reflective;
 	}
 
-	Color World::refraction_at(const Comps& comps, int num_recursions) const {
+	Color World::refraction_at(const Comps& comps, const int num_recursions) const {
 
 		Color refraction_color(0);
 
-		float n1 = 1.0f;
-		float n2 = comps.material->refractive;
-
-		float n_ratio = n1 / n2;
-		float cos_i = dot(comps.eye_vector, comps.normal_vector);
-		float sin2_t = n_ratio * n_ratio * (1 - cos_i + cos_i);
+		const float n_ratio = comps.n1 / comps.n2;
+		const float cos_i = dot(comps.eye_vector, comps.normal_vector);
+		const float sin2_t = n_ratio * n_ratio * (1 - cos_i + cos_i);
 		if (sin2_t > 1.0f) return refraction_color;
 
-		float cos_t = std::sqrt(1.0f - sin2_t);
-		Vec4 refraction_direction = comps.normal_vector * (n_ratio * cos_i - cos_t) - comps.eye_vector * n_ratio;
+		const float cos_t = std::sqrt(1.0f - sin2_t);
+		const Vec4 refraction_direction = comps.normal_vector * (n_ratio * cos_i - cos_t) - comps.eye_vector * n_ratio;
 
-		Ray refraction_ray(comps.under_point, refraction_direction);
+		const Ray refraction_ray(comps.under_point, refraction_direction);
 		Intersection refraction_intersection;
 
 		intersection_test(refraction_intersection, refraction_ray);
 
 		if (refraction_intersection.observation.hit != nullptr) {
-			Comps comps = prepare_computations(refraction_intersection, refraction_ray);
-			refraction_color = color_at(comps, --num_recursions);
+			const Comps comps = prepare_computations(refraction_intersection, refraction_ray);
+			refraction_color = color_at(comps, num_recursions - 1);
 		}
-		return refraction_color;
+		return refraction_color * comps.material->transparent;
 	}
 
 

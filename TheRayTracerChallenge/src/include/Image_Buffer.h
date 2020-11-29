@@ -43,7 +43,7 @@ namespace RayTracer {
             out << "P3\n" << width << " " << height << "\n255\n";
             for (int j = 0; j < height; j++) {
                 for (int i = 0; i < width; i++) {
-                    int pixel_index = j * height + i;
+                    int pixel_index = height * i + j;
                     int ir = int(255.99 * pixel_color[pixel_index].r);
                     int ig = int(255.99 * pixel_color[pixel_index].g);
                     int ib = int(255.99 * pixel_color[pixel_index].b);

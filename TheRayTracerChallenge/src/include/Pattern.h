@@ -59,8 +59,14 @@ namespace RayTracer {
 		{}
 
 		Color color_at(const Vec4& point) {
-			float r = (float)fmod(std::fabsf(point.x) + std::fabsf(point.y) + std::fabsf(point.z),2);
-			return (r >= 1) ? color1 : color2;
+
+			float x = std::fabs(point.x);
+			float y = std::fabs(point.y);
+			float z = std::fabs(point.z);
+
+			int sum = floorf(x) + floorf(y) + floorf(z);
+
+			return sum % 2 == 0 ? color1 : color2;
 		}
 
 	private:
