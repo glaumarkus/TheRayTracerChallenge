@@ -55,7 +55,8 @@ namespace RayTracer {
 
 
 			// TODO correct this
-			if (it->hit == intersection.observation.hit) {
+			if (are_same(*it, intersection.observation)) {
+			//if (it->hit == intersection.observation.hit) {
 
 				if (tmp.size() == 0) {
 					comps.n1 = 1.0f;
@@ -69,7 +70,8 @@ namespace RayTracer {
 
 			check_container(tmp, *it);
 
-			if (it->hit == intersection.observation.hit) {
+			if (are_same(*it, intersection.observation)) {
+			//if (it->hit == intersection.observation.hit) {
 
 				if (tmp.size() == 0) {
 					comps.n2 = 1.0f;
@@ -110,7 +112,10 @@ namespace RayTracer {
 		}
 
 		float nDotE = dot(comps.normal_vector, comps.eye_vector);
-		if (nDotE < 0) comps.normal_vector = comps.normal_vector * -1;
+		if (nDotE < 0) { 
+			comps.normal_vector = comps.normal_vector * -1; 
+			comps.under_point = comps.over_point;
+		}
 
 		return comps;
 	}

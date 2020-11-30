@@ -70,6 +70,11 @@ namespace RayTracer {
 		hittable* hit;
 	};
 
+	bool are_same(const Observation& first, const Observation& second) {
+		if (first.hit != second.hit) return false;
+		if (std::fabsf(first.t - second.t) > EPSILON) return false;
+		return true;
+	}
 }
 
 #endif 

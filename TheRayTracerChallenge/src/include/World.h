@@ -86,16 +86,16 @@ namespace RayTracer {
 		hittable_objects.push_back(g);
 		*/
 
-		Material* temp = new Material(Color(0.05, 0.05, 0.05), Color(0), Color(0.8), 200.0f, 0.0f, 1.0f, 1.5f);
-		Material* temp2 = new Material(Color(0), Color(0), Color(0), 0.0f, 1.0f, 0.0f, 1.0f);
+		Material* temp = new Material(Color(0.05, 0.05, 0.05), Color(0), Color(0.8), 200.0f, 0.0f, 1.0f, 1.0f);
+		//Material* temp2 = new Material(Color(0), Color(0), Color(0), 0.0f, 1.0f, 0.0f, 1.0f);
 
-		Sphere* s1 = new Sphere(transform(0, -5, 0, 5, 5, 5), temp);
-		Sphere* s2 = new Sphere(transform(0, -2.5, 0, 1, 1, 1), temp2);
+		Sphere* s1 = new Sphere(transform(0, -5, 0, 4, 4, 4), temp);
+		//Sphere* s2 = new Sphere(transform(0, -5, 0, 1, 1, 1), temp2);
 
 		Plane* p = new Plane(rotate_x(-PI / 2), &Materials::Checkboard);
 		hittable_objects.push_back(p);
 		hittable_objects.push_back(s1);
-		hittable_objects.push_back(s2);
+		//hittable_objects.push_back(s2);
 
 		/*
 
@@ -422,7 +422,7 @@ namespace RayTracer {
 		if (sin2_t > 1.0f) return refraction_color;
 
 		const float cos_t = std::sqrt(1.0f - sin2_t);
-		const Vec4 refraction_direction = comps.normal_vector * (n_ratio * cos_i - cos_t) - comps.eye_vector * n_ratio;
+		const Vec4 refraction_direction = ((comps.normal_vector * -1) * (n_ratio * cos_i - cos_t) - (comps.eye_vector) * n_ratio).normalize();
 
 		const Ray refraction_ray(comps.under_point, refraction_direction);
 		Intersection refraction_intersection;
@@ -430,8 +430,8 @@ namespace RayTracer {
 		intersection_test(refraction_intersection, refraction_ray);
 
 		if (refraction_intersection.observation.hit != nullptr) {
-			const Comps comps = prepare_computations(refraction_intersection, refraction_ray);
-			refraction_color = color_at(comps, num_recursions - 1);
+			const Comps refraction_comps = prepare_computations(refraction_intersection, refraction_ray);
+			refraction_color = color_at(refraction_comps, num_recursions - 1);
 		}
 		return refraction_color * comps.material->transparent;
 	}
